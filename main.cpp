@@ -33,20 +33,36 @@ int main(int argc, char** argv) {
     attroff(A_UNDERLINE); // Turn Off Underline
     attroff(COLOR_PAIR(2)); // Turn off Black on Cyan
     selection = printMenu(row, col, argc);
-    switch(selection) {
-        case 0:
-            std::cout << "Creating new game...";
-            break;
-        case 1:
-            std::cout << "Loading new game...";
-            break;
-        case 2:
-            std::cout << "Credits rolling...";
-            break;
-        case 3:
-            std::cout << "Quitting game... See you next time!";
-            endwin();
-            return 0;
+    if(argc > 1) {
+        switch(selection) {
+            case 0:
+                std::cout << "Creating new game...";
+                break;
+            case 1:
+                std::cout << "Loading new game...";
+                break;
+            case 2:
+                std::cout << "Credits rolling...";
+                break;
+            case 3:
+                std::cout << "Quitting game... See you next time!";
+                endwin();
+                return 0;
+        }
+    }
+    else {
+        switch(selection) {
+            case 0:
+                std::cout << "Creating new game...";
+                break;
+            case 1:
+                std::cout << "Credits rolling...";
+                break;
+            case 2:
+                std::cout << "Quitting game... See you next time!";
+                endwin();
+                return 0;
+        }
     }
     endwin();
     return 0;
@@ -151,22 +167,21 @@ int printMenu(int row, int col, int argc) {
                 if(highlight == -1) {
                     highlight = optionSize - 1;
                 }
-                returnOption = highlight;
                 break;
             case KEY_DOWN:
                 highlight++;
                 if(highlight == optionSize) {
                     highlight = 0;
                 }
-                returnOption = highlight;
                 break;
             default:
                 break;
         }
         if(userInput == 10) {
+            returnOption = highlight;
             break;
         }
     }
 
-    return 0;
+    return returnOption;
 }
