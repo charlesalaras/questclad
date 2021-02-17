@@ -1,7 +1,9 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
-class Enemy {
+#include "Damageable.hpp"
+
+class Enemy : public Damageable {
 protected:
   string name;
   int gold;
