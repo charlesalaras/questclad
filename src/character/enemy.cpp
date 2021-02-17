@@ -2,6 +2,6 @@
 #include <string>
 
 std::string Enemy::attack(Damageable* target) {
-  return this->dialogue + std::to_string(target->takeDamage(this->strength));
+  return this->getName() + " " + this->dialogue + " " + target->getName() + " for " + std::to_string(target->takeDamage(this->strength)) + " damage!";
 }
 
