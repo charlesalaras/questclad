@@ -4,14 +4,13 @@
 class character{
  protected:
     string character;
-    
-    double strength;
+    int class;    
+  
  public:
-   character(string character, double health, double strength):character(){}
+   character(string character):character(){}
    virtual ~character() {}
    
    
    virtual stirng getName()=0;
 
-   virtual double getStrength()=0.0;
 }
