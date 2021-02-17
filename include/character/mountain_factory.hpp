@@ -17,7 +17,8 @@ public:
   MountainFactory() { }
 
   virtual Enemy getEnemy(int level) {
-    Enemy newEnemy(this->sounds[0], 100, 50, 10);
+    double scale = 1 + level / 10;
+    Enemy newEnemy(this->names[0], 10 * scale, 20 * scale, 5 * scale, 5 * scale, this->sounds[0]);
     return newEnemy;
   }
 

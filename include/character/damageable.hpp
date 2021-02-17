@@ -1,16 +1,17 @@
 #ifndef DAMAGEABLE_HPP
 #define DAMAGEABLE_HPP
 
+#include "character/character.hpp"
 #include <string>
 
-class Damageable {
+class Damageable : public Character {
 protected:
   int health;
   int defense;
   int strength;
 
 public:
-  Damageable(int health, int defense, int strength) : health(health), defense(defense), strength(strength) {}
+  Damageable(std::string name, int gold, int health, int defense, int strength) : Character(name, gold), health(health), defense(defense), strength(strength) {}
   bool isAlive();
 
   int takeDamage(int damage);

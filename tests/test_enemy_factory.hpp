@@ -6,6 +6,6 @@ TEST(Enemy, MountainFactoryEnemy) {
   Enemy enemy = factory->getEnemy(10);
 
   EXPECT_EQ(enemy.isAlive(), true);
-  EXPECT_EQ(enemy.takeDamage(10), 10);
+  EXPECT_EQ(enemy.takeDamage(10), 1);
 }
 
