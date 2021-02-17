@@ -182,6 +182,5 @@ int printMenu(int row, int col, int argc) {
             break;
         }
     }
-
     return returnOption;
 }
