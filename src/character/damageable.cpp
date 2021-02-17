@@ -11,3 +11,7 @@ int Damageable::takeDamage(int damage) {
   return damage;
 }
 
+std::string Damageable::attack(Damageable* target, std::string attackName, int damage) {
+  return this->getName() + " " + attackName + target->getName() + " for " + std::to_string(target->takeDamage(damage)) + " damage!";
+
+}

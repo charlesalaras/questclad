@@ -11,7 +11,7 @@ protected:
 public:
   Enemy(std::string name, int gold, int health, int defense, int strength, std::string dialogue) : Damageable(name, gold, health, defense, strength), dialogue(dialogue) {};
   
-  virtual std::string attack(Damageable* target);  
+  std::string simpleAttack(Damageable* target);  
   std::string getDialogue();
 };
 

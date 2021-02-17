@@ -16,7 +16,7 @@ public:
 
   int takeDamage(int damage);
 
-  virtual std::string attack(Damageable* target) = 0;
+  std::string attack(Damageable* target, std::string attackName, int damage);
 
 };
 
