@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include <iostream>
-#include "game.hpp"
+//#include "game.hpp"
 #include <string>
 #include <ctime>
 
@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
         switch(selection) {
             case 0:
                 std::cout << "Creating new game...";
-                Game gameInstance();
+                //Game gameInstance();
                 break;
             case 1:
                 std::cout << "Loading new game...";
@@ -183,6 +183,6 @@ int printMenu(int row, int col, int argc) {
             break;
         }
     }
-    delete choicewin;
+    wclear(choicewin);
     return returnOption;
 }
