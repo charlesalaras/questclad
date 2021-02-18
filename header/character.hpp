@@ -1,15 +1,17 @@
 #include<iostream>
 #include<string>
 
-class character{
+class Character{
+   
  protected:
-    string character;
-    int class;    
+   const std:: string name;
+    int class;  
+    int gold;   
   
  public:
-   character(string character):character(){}
-   virtual ~character() {}
-   
+   Character(std::string name, int gold):name(name), gold(gold){}
+   virtual ~Character() {}
+   virtual int getGold()=0;
    
    virtual stirng getName()=0;
 
