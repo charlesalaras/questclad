@@ -6,6 +6,7 @@
 
 void printTitle(int row, int col);
 int printMenu(int row, int col, int argc);
+void rollCredits(int row, int col);
 
 int main(int argc, char** argv) {
     srand(time(NULL));
@@ -18,6 +19,7 @@ int main(int argc, char** argv) {
     curs_set(0); // Hide Cursor
     start_color(); // Start Colors (Maybe Add a Check Before Later On?)
     init_pair(2, COLOR_BLACK, COLOR_CYAN); // Initialize Black Text on Cyan
+    init_pair(3, COLOR_WHITE, COLOR_BLACK); // Initialize White Text on Black
     getmaxyx(stdscr, row, col); // Get Maximum Space of Window
     noecho(); // Hides Character Echo
 
@@ -36,17 +38,17 @@ int main(int argc, char** argv) {
     if(argc > 1) {
         switch(selection) {
             case 0:
-                std::cout << "Creating new game...";
+                std::cout << "Creating new game...\n";
                 //Game gameInstance();
                 break;
             case 1:
-                std::cout << "Loading new game...";
+                std::cout << "Loading new game...\n";
                 break;
             case 2:
-                std::cout << "Credits rolling...";
+                std::cout << "Credits rolling...\n";
                 break;
             case 3:
-                std::cout << "Quitting game... See you next time!";
+                std::cout << "Quitting game... See you next time!\n";
                 endwin();
                 return 0;
         }
@@ -65,6 +67,7 @@ int main(int argc, char** argv) {
                 return 0;
         }
     }
+    clear();
     endwin();
     return 0;
 }
@@ -143,7 +146,6 @@ int printMenu(int row, int col, int argc) {
     int menuColumns = col / 2;
     int highlight = 0;
     // Window Initialization
-    init_pair(3, COLOR_WHITE, COLOR_BLACK); // Initialize White Text on Black
     WINDOW * choicewin = newwin(menuRows, menuColumns, row - row / 2, col / 4);
     wbkgd(choicewin, COLOR_PAIR(3));
     // Window Drawing
