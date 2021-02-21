@@ -12,11 +12,13 @@ private:
    std::queue<Event*>eventBuffer;
    User* mainCharacter = nullptr;
    bool loadGame(); // Helper to Parametrized Constructor
-   void buildInstance(); // Helper to Default Constructor
-   void passingPrompt();
+   std::string getName();
+   void endScreen();
 public:
    Game();
    Game(std::string fname); // Calls loadGame
+   void build();
    void runGame();
    void saveGame();
+   bool passingPrompt();
 };
