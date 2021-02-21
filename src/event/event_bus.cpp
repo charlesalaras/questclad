@@ -1,13 +1,22 @@
 #include "event_bus.hpp"
-#include "event_handler.hpp"
+#include "event.hpp"
 
-void EventBus::dispatch(std::string event, std::string message) {
-  for(auto handler : this->map[event]) {  
-    handler->run(message);
-  }
+
+Event EventBus::getNext() {
+  Event next = this->bus.front();
+  this->bus.pop_front();
+  return next;
 }
 
-void EventBus::register(std::string event, EventHandler* handler) {
-  //using this->map[event] will default construct a vector if there is none
-  this->map[event].push_back(handler); 
+void EventBus::register(Event event) {
+  this->bus.push_back(event);
+}
+
+void EventBus::registerImmediate(Event event) {
+  this->bus.push_front(event);
+}
+
+void setTrigget(Event event, int turns) {
+  //todo
+
 }
