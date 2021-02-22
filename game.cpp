@@ -1,14 +1,18 @@
 #include "game.hpp"
-#include <ncurses>
+// #include <ncurses>
 #include <fstream>
 #include <time.h>
 #include <string>
 
 // 2021-02-13T03:00:53
 Game::Game() {
+   time_t rawtime;
+   struct tm * timeinfo;
+   time (&rawtime);
+   timeinfo = localtime(&rawtime);
    char timestamp[20];
-   strftime(timestamp, 20, "%Y-%m-%dT%h-%m-%S");
-   filename = "Save-" + timestamp + ".txt";
+   strftime(timestamp, 20, "%Y-%m-%dT%h-%m-%S", timeinfo);
+   saveName = std::string("Save-") + timestamp + ".txt";
 }
 
 void Game::build() {
@@ -45,9 +49,9 @@ void Game::build() {
          mvwprintw(instanceWin, winrow - 1, 2, "Name must be at least 1 character!");
       }
       // (65-90 OR 97-122) AND name isn't full
-      else if((selection > 64 && selection < 91) || (selection > 96 && selection < 123) && inputname.size() < 16) {
+      else if(((selection > 64 && selection < 91) || (selection > 96 && selection < 123)) && inputname.size() < 16) {
          inputname += selection;
-         for(int i = 0; i < 16; i++) {
+         for(unsigned int i = 0; i < 16; i++) {
             if(i < inputname.size()) {
                if(i == inputname.size() - 1) {
                   wattron(instanceWin, A_REVERSE);
@@ -66,7 +70,7 @@ void Game::build() {
       }
       else if(selection == KEY_BACKSPACE && !inputname.empty()) {
          inputname.pop_back();
-         for(int i = 0; i < 16; i++) {
+         for(unsigned int i = 0; i < 16; i++) {
             if(i < inputname.size()) {
                if(i == inputname.size() - 1) {
                   wattron(instanceWin, A_REVERSE);
@@ -94,10 +98,10 @@ void Game::build() {
       for(int i = 0; i < 3; i++) {
          // Highlight if Option is Hovered
          if(highlight == i) {
-            wattron(A_REVERSE);
+            wattron(instanceWin, A_REVERSE);
          }
          mvwprintw(instanceWin, 4 + i, (wincol - skills[i].size()) / 2, skills[i].c_str());
-         wattroff(A_REVERSE);
+         wattroff(instanceWin, A_REVERSE);
       }
       // Option Goes Up
       if(selection == KEY_UP) {
@@ -123,8 +127,8 @@ void Game::build() {
 
 void Game::runGame() {
    int gameOver = 0;
-   while(!eventBuffer.empty()) {
-      bool success = eventBuffer.front->runEvent();
+   while(!(eventBuffer.empty())) {
+      bool success = (eventBuffer.front())->runEvent();
       if(!success) {
          gameOver = 1;
          endScreen();
@@ -153,21 +157,21 @@ void Game::saveGame() {
    WINDOW * saveWin = newwin(winrow, wincol, row / 4, col / 4);
    keypad(saveWin, true);
    box(saveWin, 0, 0);
-   string promptString = mainCharacter->name + ", would you like to save?";
+   std::string promptString = mainCharacter->name + ", would you like to save?";
    mvwprintw(saveWin, 4, wincol / 2, promptString.c_str());
    refresh();
    wrefresh(saveWin);
    while(selection == -1) {
       if(highlight == 0) {
-         wattron(A_REVERSE);
+         wattron(saveWin, A_REVERSE);
       }
-      mvprintw(saveWin, 6, (wincol - 3) / 2, "Yes");
-      wattroff(A_REVERSE);
+      mvwprintw(saveWin, 6, (wincol - 3) / 2, "Yes");
+      wattroff(saveWin, A_REVERSE);
       if(highlight == 1) {
-         wattron(A_REVERSE);
+         wattron(saveWin, A_REVERSE);
       }
-      mvprintw(saveWin, 8, (winrow - 2) / 2, "No");
-      wattroff(A_REVERSE);
+      mvwprintw(saveWin, 8, (winrow - 2) / 2, "No");
+      wattroff(saveWin, A_REVERSE);
       refresh();
       wrefresh(saveWin);
       selection = getch();
@@ -208,9 +212,9 @@ void endScreen() {
    int col = 0;
    getmaxyx(stdscr, row, col);
    init_pair(9, COLOR_RED, COLOR_BLACK);
-   wattron(COLOR_PAIR(9));
-   wattron(A_BOLD);
-   box(0, 0);
+   attron(COLOR_PAIR(9));
+   attron(A_BOLD);
+   box(stdscr, 0, 0);
    mvprintw(row / 2, col / 2, "%s", "GAME OVER");
 }
 
@@ -233,13 +237,13 @@ bool Game::passingPrompt() {
       selection = wgetch(promptWin);
       for(int i = 0; i < 4; i++) {
          if(highlight == i) {
-            wattron(A_REVERSE);
+            wattron(promptWin, A_REVERSE);
          }
          mvwprintw(promptWin, 2*i + 2, (wincol - options[i].size()) / 2, options[i].c_str());
-         wattroff(A_REVERSE);
+         wattroff(promptWin, A_REVERSE);
       }
       if(selection == KEY_UP) {
-         higlight--;
+         highlight--;
          if(highlight < 1) {
             highlight = 1;
          }
@@ -247,7 +251,7 @@ bool Game::passingPrompt() {
       else if(selection == KEY_DOWN) {
          highlight++;
          if(highlight > 3) {
-            higlight = 3;
+            highlight = 3;
          }
       }
       else if (selection == 10) {
@@ -266,4 +270,5 @@ bool Game::passingPrompt() {
          }
       }
    }
+   return true;
 }
