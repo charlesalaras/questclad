@@ -5,7 +5,7 @@ class Character{
    
  protected:
    const std:: string name;
-    int class;  
+    int classType;  
     int gold;   
   
  public:
