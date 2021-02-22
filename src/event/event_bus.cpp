@@ -16,7 +16,7 @@ void EventBus::registerImmediate(Event event) {
   this->bus.push_front(event);
 }
 
-void setTrigget(Event event, int turns) {
+void setTrigger(Event event, int turns) {
   //todo
 
 }
