@@ -5,9 +5,7 @@
 
 class EnemyFactory {
 public:
-  virtual Enemy getWarrior() = 0;
-  virtual Enemy getArcher() = 0;
-  virtual Enemy getWizard() = 0;
+  virtual Enemy getEnemy(int level) = 0;
 
 };
 
