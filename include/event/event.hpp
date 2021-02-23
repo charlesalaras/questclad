@@ -1,10 +1,9 @@
-#ifndef EVENT_HANDLER_HPP
-#define EVENT_HANDLER_HPP
+#ifndef EVENT_HPP
+#define EVENT_HPP
 
 class EventBus;
-//class Interface;
 
-class EventHandler {
+class Event {
 private:
   EventBus* eventBus;
   bool isActive = true;
@@ -13,9 +12,9 @@ protected:
   bool finish();
 
 public:
-  EventHandler(EventBus* eventBus);
+  Event(EventBus* eventBus);
   
-  void run(std::string message);
+  void run();
   
   bool isActive();
 

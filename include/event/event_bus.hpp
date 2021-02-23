@@ -1,19 +1,23 @@
 #ifndef EVENT_BUS_HPP
 #define EVENT_BUS_HPP
 
-#include <unordered_map>
-#include <vector>
+#include <list>
+#include <pair>
 
-class EventHandler;
+class Event;
 
 class EventBus {
 private:
-  std::unordered_map<std::string, std::vector<EventHandler*>> map;
+  std::list<Event> events;
+  std::list<std::pair<int, Event>> triggers;
 
 public:
   EventBus();
-  void register(std::string event, EventHandler* handler);
-
+  
+  Event getNext();
+  void register(Event event);
+  void registerImmediate(Event event);
+  void setTrigger(Event event, int turns);
 };
 
 #endif
