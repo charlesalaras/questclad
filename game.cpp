@@ -127,7 +127,13 @@ void Game::build() {
 
 void Game::runGame() {
    int gameOver = 0;
+   int i = 0;
+   int row = 0;
+   int col = 0;
+   getmaxyx(stdscr,row,col);
    while(!(eventBuffer.empty())) {
+      clear();
+      mvprintw(row / 2, (col - (storyElements[i].size()) / 2, storyElements[i]);
       bool success = (eventBuffer.front())->runEvent();
       if(!success) {
          gameOver = 1;
