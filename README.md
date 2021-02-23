@@ -26,8 +26,8 @@ The input and output of this project will be based upon important interactions w
 ### Design Patterns
 The two design patterns that will be used in our project is the composite pattern and the abstract factory pattern.  
 
-  * Composite
-    * We will be implementing the Character class as a composite class. The character will have a few different components such as armor, weapon, skills, and etc. Since each part can have multiple interchangeable components it would be hard and time consuming for us to write out a new class for each option. The composite pattern allows us to define a character as a grouping of a few different interfaces and therefore we can have interchangable class for each character option.
+  * Strategy
+    * We will be implementing the Character class using the strategy pattern. The character will have a few different components such as armor, weapon, skills, and etc. Since each part can have multiple interchangeable components it would be hard to hardcode in classes for each componnent. The strategy pattern allows us to define a character as a grouping of a few different interfaces and therefore we can have interchangable class for each character option.
  * Abstract Factory
     * We are planning on having a large variety of enemy types which can include variants of various types. Since the number of enemies and variants could be very large, the number of classes we would have to create would be very messy. To fix this we plan on having an abstract factory that allows us to get a enemy type factory that would generate enemy variants. Abstract Factory can also see usefulness in handling various events and the orchestration of each functional part of the events.
 
