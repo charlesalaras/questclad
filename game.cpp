@@ -145,6 +145,7 @@ void Game::runGame() {
       if(passingPrompt()) {
          return;
       } // Asks User if they Would like to Use / Change Items
+      ++i;
    }
    return;
 }
