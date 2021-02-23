@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include <fstream>
+#include <vector>
 #include <string>
 #include <queue>
 #include <map>
@@ -11,6 +12,7 @@ class Game {
 private:
    std::string saveName;
    std::queue<Event*>eventBuffer;
+   std::vector<std::string>storyElements;
    User* mainCharacter = nullptr;
    bool loadGame(); // Helper to Parametrized Constructor
    std::string getName();
