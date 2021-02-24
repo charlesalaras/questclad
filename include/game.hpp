@@ -1,22 +1,29 @@
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
+#include <ncurses.h>
 #include <fstream>
+#include <vector>
 #include <string>
 #include <queue>
 #include <map>
 
 class Game {
 private:
-   std::string filename;
+   std::string saveName;
    std::queue<Event*>eventBuffer;
-   User* user = nullptr;
-   bool loadGame(); // Helper to Loaded Constructor
-   void buildInstance(); // Helper to Default Constructor
+   std::vector<std::string>storyElements;
+   User* mainCharacter = nullptr;
+   bool loadGame(); // Helper to Parametrized Constructor
+   std::string getName();
+   void endScreen();
+   void build();
 public:
    Game();
-   ~Game();
    Game(std::string fname); // Calls loadGame
    void runGame();
-   bool saveGame();
+   void saveGame();
+   bool passingPrompt();
 };
+
+#endif //__GAME_HPP__
