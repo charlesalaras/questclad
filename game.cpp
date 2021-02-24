@@ -14,6 +14,13 @@ Game::Game() {
    strftime(timestamp, 20, "%Y-%m-%dT%h-%m-%S", timeinfo);
    saveName = std::string("Save-") + timestamp + ".txt";
 }
+Game::~Game() {
+   delete user;
+   while(!eventBuffer.empty()) {
+      delete eventBuffer.top();
+      eventBuffer.pop();
+   }
+}
 
 void Game::build() {
    clear();
@@ -140,6 +147,7 @@ void Game::runGame() {
          endScreen();
          return;
       }
+      delete eventBuffer.top(); // Deletes what's about to be popped
       eventBuffer.pop();
       saveGame(); // Asks User if They Would Like to Save
       if(passingPrompt()) {
