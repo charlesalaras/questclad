@@ -2,28 +2,28 @@
 #include <algorithm>
 
 bool Damageable::isAlive() {
-  return this->health > 0;
+  return this->currentHealth > 0;
 }
 
 int Damageable::takeDamage(int damage) {
-  damage = std::max(1, damage - this->defense);
-  this->health -= damage;
+  damage = std::max(1, damage - (this->defense + this->defenseBonus));
+  this->currentHealth -= damage;
   return damage;
 }
 
 void Damageable::addStrengthBonus(int bonus) {
-  this->strength += bonus;
+  this->strengthBonus += bonus;
 }
 
 void Damageable::addDefenseBonus(int bonus) {
-  this->defense += bonus;
+  this->defenseBonus += bonus;
 }
 
 void Damageable::addHealthBonus(int bonus) {
-  this->health += bonus;
+  this->healthBonus += bonus;
+  this->currentHealth += bonus;
 }
 
 int Damageable::attack(Damageable* target, int damage) {
-  return target->takeDamage(damage);
-
+  return target->takeDamage(((this->strengthBonus + this->strength) / 20) * damage);
 }

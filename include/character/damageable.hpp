@@ -9,7 +9,12 @@ protected:
   int health;
   int defense;
   int strength;
+  
+  int currentHealth;
 
+  int healthBonus;
+  int defenseBonus;
+  int strengthBonus;
 public:
   Damageable(std::string name, int gold, int health, int defense, int strength) : Character(name, gold), health(health), defense(defense), strength(strength) {}
   bool isAlive();
