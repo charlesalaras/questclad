@@ -14,6 +14,7 @@ private:
 public:
   EventBus();
   
+  bool hasNext();
   Event getNext();
   void register(Event event);
   void registerImmediate(Event event);
