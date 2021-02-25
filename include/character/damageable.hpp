@@ -21,6 +21,12 @@ public:
 
   int takeDamage(int damage);
   
+  int getCurrentHealth();
+
+  int getHealth();
+  int getDefense();
+  int getStrength();
+
   void addStrengthBonus(int bonus);
   void addDefenseBonus(int bonus);
   void addHealthBonus(int bonus);

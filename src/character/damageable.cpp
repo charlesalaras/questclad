@@ -11,6 +11,22 @@ int Damageable::takeDamage(int damage) {
   return damage;
 }
 
+int Damageable::getCurrentHealth() {
+  return this->currentHealth;
+}
+
+int Damageable::getHealth() {
+  return this->health;
+}
+
+int Damageable::getDefense() {
+  return this->defense;
+}
+
+int Damageable::getStrength() {
+  return this->strength;
+}
+
 void Damageable::addStrengthBonus(int bonus) {
   this->strengthBonus += bonus;
 }
