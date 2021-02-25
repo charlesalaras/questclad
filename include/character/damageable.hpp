@@ -15,8 +15,12 @@ public:
   bool isAlive();
 
   int takeDamage(int damage);
+  
+  void addStrengthBonus(int bonus);
+  void addDefenseBonus(int bonus);
+  void addHealthBonus(int bonus);
 
-  std::string attack(Damageable* target, std::string attackName, int damage);
+  int attack(Damageable* target, int damage);
 
 };
 

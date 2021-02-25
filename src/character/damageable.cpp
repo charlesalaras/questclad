@@ -11,7 +11,19 @@ int Damageable::takeDamage(int damage) {
   return damage;
 }
 
-std::string Damageable::attack(Damageable* target, std::string attackName, int damage) {
-  return this->getName() + " " + attackName + target->getName() + " for " + std::to_string(target->takeDamage(damage)) + " damage!";
+void Damageable::addStrengthBonus(int bonus) {
+  this->strength += bonus;
+}
+
+void Damageable::addDefenseBonus(int bonus) {
+  this->defense += bonus;
+}
+
+void Damageable::addHealthBonus(int bonus) {
+  this->health += bonus;
+}
+
+int Damageable::attack(Damageable* target, int damage) {
+  return target->takeDamage(damage);
 
 }
