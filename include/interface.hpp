@@ -17,27 +17,30 @@ protected:
 
 class InventoryInterface: public Interface {
 private:
-   vector<Item*>* charInv; // Accesses User's Items
+   vector<Item*>* invPtr; // Accesses User's Items
 public:
-   InventoryInt();
+   InventoryInterface(vector<Item*> inventory);
    int DrawInt(); // Returns Item Consumed (Index)
 }
 
 class SkillInterface: public Interface {
 private:
-   vector<Skill*>* skill; // Accesses User's Skills
+   vector<Skill*>* skillPtr; // Accesses User's Skills
    void printSkills(); // Helper Function to Print User Skill Names
 public:
-   SkillInt();
-   int DrawInt(); // Returns Skill Number Used
+   SkillInterface(vector<Skill*> skills);
+   void setProperties(int colors, int rows, int cols); // Skill relies on UI to build itself
+   int DrawInt(WINDOW *); // Returns Skill Number Used
 }
 
 class UserInterface: public Interface {
 private:
    Interface* skillInt;
    Interface* inventoryInt;
+   WINDOW * uiwin;
 public:
-   UserInterface(vector<Skill*>, vector<Item*>);
+   UserInterface(vector<Skill*> skills, vector<Item*> inventory, int type);
+   ~UserInterface();
    pair<int, int> DrawInt();
    /*
    First Int: Attack or Consume
