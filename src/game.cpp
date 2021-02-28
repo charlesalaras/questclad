@@ -98,16 +98,17 @@ void Game::build() {
       refresh();
       wrefresh(instanceWin);
    }
+   wclear(instanceWin);
+   box(instanceWin, 0, 0);
    mvwprintw(instanceWin, 2, 2, "Traveller, what is your skill?");
    selection = 0;
    while(selection != 10) {
-      selection = wgetch(instanceWin);
       for(int i = 0; i < 3; i++) {
          // Highlight if Option is Hovered
          if(highlight == i) {
             wattron(instanceWin, A_REVERSE);
          }
-         mvwprintw(instanceWin, 4 + i, (wincol - skills[i].size()) / 2, skills[i].c_str());
+         mvwprintw(instanceWin, 4 + i*2, (wincol - skills[i].size()) / 2, skills[i].c_str());
          wattroff(instanceWin, A_REVERSE);
       }
       // Option Goes Up
@@ -128,6 +129,9 @@ void Game::build() {
       else if(selection == 10) {
          skillType = highlight;
       }
+      refresh();
+      wrefresh(instanceWin);
+      selection = wgetch(instanceWin);
    }
    mainCharacter = new User(inputname, 10, skillType);
 }
