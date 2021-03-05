@@ -2,26 +2,33 @@
 #include "interface/skill_interface.hpp"
 #include "character/mock_skill.hpp"
 #include <ncurses.h>
+#include <iostream>
 
 int main() {
-  
+  int row;
+  int col;
+
+  getmaxyx(stdscr, row, col);
+
   initscr();
   clear();
   noecho();
-  raw();
-  keypad(stdscr, TRUE);
-  
-  WINDOW* win = create_newwin(10, 10, 0, 0);
+  cbreak();
+  refresh();
+  WINDOW* win = newwin(row / 2, col / 2, 0, 0);
+  box(win, 0, 0);
+  keypad(win, true);
 
   User newChar("name", 100, 10, 10, 10);
   newChar.addSkill(new MockSkill("skill 1", 1));
   newChar.addSkill(new MockSkill("skill 2", 1));
   
-  SkillInterface interface(&newChar, win);
+  SkillInterface interface(win, &newChar);
   interface.draw();
-  
+
   while(true) {
-    char c = getch();
+    interface.draw();
+    int c = wgetch(win);
     std::string res = interface.update(c);
     if(res == "end") {
       break;
@@ -29,6 +36,7 @@ int main() {
   }
   
   delwin(win);
-
+  endwin();
+  exit_curses(0);
   return 0;
 }

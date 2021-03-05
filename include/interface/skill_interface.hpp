@@ -4,6 +4,7 @@
 #include "interface/interface.hpp"
 #include "character/character.hpp"
 #include <ncurses.h>
+#include <menu.h>
 
 class SkillInterface : public Interface {
 private:
@@ -11,39 +12,53 @@ private:
   User* character;
   ITEM** skills;
   int skillSize;  
-  MENU menu;
+  MENU* menu;
 
 public:
   SkillInterface(WINDOW* win, User* character) : win(win), character(character) {
     this->initMenu();  
   };
 
+  ~SkillInterface() {
+    this->freeMenu();
+  }
+
   void freeMenu() {
-    unpost_menu(this->menu);
-    free_menu(this->menu);
+    this->undraw();
     for(int i = 0; i < skillSize; ++i) {
       free_item(this->skills[i]);
     }
+    free_menu(this->menu);
+    delete this->skills;
   }
 
   void refresh() {
+    this->freeMenu();
     this->initMenu();
   }
   
   void initMenu() {
     std::vector<Skill*> newSkills = this->character->getSkills();
-    this->skills[] = new (ITEM*)[newSkills.size()];
+    this->skills = new ITEM*[newSkills.size()];
     for(int i = 0; i < newSkills.size(); ++i) {
-      this->skills[i] = new_item(newSkills[i]->getName().c_str(), newSkills[i]->getName().c_str());
-    }   
+      const char* name = newSkills[i]->getName().c_str();
 
-    this->menu = new_menu_win(this->win, this->skills);
-    post_menu(this->menu);
-    
-    wrefresh(this->win); 
+      this->skills[i] = new_item(name, "");
+    }
+    this->menu = new_menu(this->skills);
+    set_menu_win(this->menu, this->win);
+    set_menu_sub(this->menu, derwin(this->win, 15, 15, 5, 5));
   }
 
-  virtual std::string update(char c) {
+  virtual void draw() {
+    post_menu(this->menu);
+  }
+
+  virtual void undraw() {
+    unpost_menu(this->menu);
+  }
+
+  virtual std::string update(int c) {
     switch(c) {
       case KEY_DOWN:
         menu_driver(this->menu, REQ_DOWN_ITEM);
@@ -57,10 +72,9 @@ public:
       case KEY_LEFT:
         menu_driver(this->menu, REQ_LEFT_ITEM);
         break;
-      case KEY_ENTER:
+      case 10:
         return "end";
     }
-    wrefresh(this->win);
     return ""; 
   }
 };

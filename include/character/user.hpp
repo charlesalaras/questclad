@@ -12,9 +12,14 @@ public:
   User(std::string name, int gold, int health, int defense, int strength) : Damageable(name, gold, health, defense, strength) {
   
   }
-
+	
+  ~User() {
+    for(int i = 0; i < this->skills.size(); ++i) {
+      delete this->skills[i];
+    }
+  }
   std::vector<Skill*> getSkills() {
-    return skills;
+    return this->skills;
   }
 
   void addSkill(Skill* skill) {
