@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include <string>
+#include <vector>
 
 class Character {
 private:
@@ -12,13 +13,12 @@ public:
   Character(std::string name, int gold) : name(name), gold(gold) { }
   
   int getGold() {
-    return gold;
+    return this->gold;
   }
 
   std::string getName() {
-    return name;
+    return this->name;
   }
-
 };
 
 #endif

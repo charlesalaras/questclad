@@ -15,8 +15,13 @@ SET(SRC
 
 ADD_EXECUTABLE(test tests/test.cpp 
   ${SRC}
-  )
+)
+
+ADD_EXECUTABLE(main main.cpp
+  ${SRC}
+)
 
 TARGET_LINK_LIBRARIES(test gtest)
 TARGET_LINK_LIBRARIES(test ncurses)
+TARGET_LINK_LIBRARIES(main ncurses)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
