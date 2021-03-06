@@ -40,10 +40,11 @@ int main(int argc, char** argv) {
             case 0:
                 std::cout << "Creating new game...\n";
                 Game gameInstance();
-                runGame();
+                gameInstance.build();
+                gameInstance.runGame();
                 break;
             case 1:
-                std::cout << "Loading new game...\n";
+                std::cout << "Loading game...\n";
                 break;
             case 2:
                 std::cout << "Credits rolling...\n";
@@ -59,7 +60,8 @@ int main(int argc, char** argv) {
             case 0:
                 std::cout << "Creating new game...";
                 Game gameInstance();
-                runGame();
+                gameInstance.build();
+                gameInstance.runGame();
                 break;
             case 1:
                 std::cout << "Credits rolling...";
