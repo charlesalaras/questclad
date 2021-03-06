@@ -34,7 +34,8 @@ pair<int, int> UserInterface::drawInt() {
    int type = -1;
    box(uiwin, 0, 0); // Draw Box with Default Properties
    while(selection != 10) {
-      mvwprintw(uiwin, 0, 3, "What Will You Do?");
+      std::string userHP = "HP: " + user->getHP();
+      mvwprintw(uiwin, 0, 3, userHP.c_str());
       for(int i = 0; i < 3; i++) {
          if(highlight == i) {
             wattron(uiwin, A_REVERSE);

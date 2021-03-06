@@ -35,6 +35,7 @@ public:
 
 class UserInterface: public Interface {
 private:
+   User* user;
    Interface* skillInt;
    Interface* inventoryInt;
    WINDOW * uiwin;
