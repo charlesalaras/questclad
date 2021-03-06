@@ -13,7 +13,9 @@ int drawInt() {
          if(highlight == i) {
             attron(A_REVERSE);
          }
+         if(invPtr->at(i)->getType() == 2) {
             invPtr->at(i)->printItem(i);
+         }
          if(highlight == i) {
             attroff(A_REVERSE);
          }
