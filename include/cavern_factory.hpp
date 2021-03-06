@@ -12,7 +12,7 @@ private:
    std::vector<std::string> names = {"Ogre", "Goblin"};
    std::vector<std::string> sounds = {"graa", "mgwaga"};
 public:
-   MountainFactory() { }
+   CavernFactory() { }
 
    virtual Enemy getEnemy(int level) {
       double scale = 1 + level / 10;
