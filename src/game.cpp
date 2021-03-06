@@ -142,17 +142,10 @@ void Game::runGame() {
    int row = 0;
    int col = 0;
    getmaxyx(stdscr,row,col);
-   while(!(eventBuffer.empty())) {
+   while(events.hasNext()) {
       clear();
       mvprintw(row / 2, (col - (storyElements[i].size()) / 2, storyElements[i]);
-      bool success = (eventBuffer.front())->runEvent();
-      if(!success) {
-         gameOver = 1;
-         endScreen();
-         return;
-      }
-      delete eventBuffer.top(); // Deletes what's about to be popped
-      eventBuffer.pop();
+      getNext().run();
       saveGame(); // Asks User if They Would Like to Save
       if(passingPrompt()) {
          return;
@@ -225,7 +218,7 @@ void Game::saveGame() {
    // TODO: Write File Here
 }
 
-void endScreen() {
+void Game::endScreen() {
    clear();
    int row = 0;
    int col = 0;
