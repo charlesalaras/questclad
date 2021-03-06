@@ -15,11 +15,7 @@ Game::Game() {
    saveName = std::string("Save-") + timestamp + ".txt";
 }
 Game::~Game() {
-   delete user;
-   while(!eventBuffer.empty()) {
-      delete eventBuffer.top();
-      eventBuffer.pop();
-   }
+   delete mainCharacter;
 }
 
 void Game::build() {
