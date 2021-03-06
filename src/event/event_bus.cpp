@@ -1,6 +1,9 @@
 #include "event_bus.hpp"
 #include "event.hpp"
 
+bool EventBus::hasNext() {
+  return !this->bus.empty();
+]
 
 Event EventBus::getNext() {
   Event next = this->bus.front();
