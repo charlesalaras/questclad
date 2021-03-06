@@ -20,10 +20,10 @@ private:
    bool loadGame(); // Helper to Parametrized Constructor
    std::string getName();
    void endScreen();
-   void build();
 public:
    Game();
    Game(std::string fname); // Calls loadGame
+   void build();
    void runGame();
    void saveGame();
    bool passingPrompt();
