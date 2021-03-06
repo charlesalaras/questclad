@@ -15,6 +15,7 @@ SET(SRC
 
 ADD_EXECUTABLE(test tests/test.cpp 
   ${SRC}
+  src/test-main.cpp
   )
 
 TARGET_LINK_LIBRARIES(test gtest)
