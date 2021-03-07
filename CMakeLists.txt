@@ -13,6 +13,7 @@ SET(SRC
 
 ADD_EXECUTABLE(test tests/test.cpp 
   ${SRC}
+  src/test-main.cpp
 )
 
 ADD_EXECUTABLE(main main.cpp
