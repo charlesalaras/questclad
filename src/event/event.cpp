@@ -1,6 +1,13 @@
 #include "event/event_handler.hpp"
 #include "event/event_bus.hpp"
-
+/*
+getch() is used intuitively as a buffer throughout the run() function.
+This is because if getch is not used, whatever is drawn to screen will
+immediately disappear. This also gives the benefit that the user can
+advance an event at their own pace, but does create risk of being
+infinitely stuck in a state of waiting (which could produce some scary bug)
+For now, we presume that if any key is entered, let's advance through.
+*/
 Event::Event(User* maincharacter, string input)
 : user(maincharacter)
 {
@@ -27,12 +34,14 @@ void Event::run() {
       std::string attackText = user->getName() + " dealt " + to_string(damageDealt) + " to " + target->getName() + " using " + user->getAttack(choice->second) + "!";
       mvwprintw(eventBox, row / 2, 2, attackText.c_str());
       wrefresh(eventBox);
+      getch();
    }
    if(choice->first == 1) { // Use Consumable
       int boostGiven = user->useItem(choice->second); // Use Item at Specified Index
       std::string boostText = user->getName() + " gained " + to_string(boostGiven) + " boost in " + user->getItemType(choice->second);
       mvwprintw(eventBox, row / 2, 2, boostText.c_str());
       wrefresh(eventBox);
+      getch();
    }
    if(choice->first == 2) { // Attempt Escape
       srand(time(NULL));
@@ -45,6 +54,32 @@ void Event::run() {
          wclear(eventBox);
          return;
       }
+   }
+   // Enemy Turn
+   srand(time(NULL));
+   std::string enemyText;
+   int damageTaken = 0;
+   int enemyAttack = rand() % enemyNumber; // Choose who Attacks for Enemy
+   if(enemyAttack == 0) { // Enemy1 Attacks
+      damageTaken = enemy1->attack(user);
+      enemyText = enemy1->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy1->getDialogue + "!";
+      mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
+      wrefresh(eventBox);
+      getch();
+   }
+   if(enemyAttack == 1) { // Enemy1 Attacks
+      damageTaken = enemy2->attack(user);
+      enemyText = enemy2->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy2->getDialogue + "!";
+      mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
+      wrefresh(eventBox);
+      getch();
+   }
+   if(enemyAttack == 2) { // Enemy1 Attacks
+      damageTaken = enemy3->attack(user);
+      enemyText = enemy3->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy3->getDialogue + "!";
+      mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
+      wrefresh(eventBox);
+      getch();
    }
   }
   if(user->getHealth() <= 0) {
