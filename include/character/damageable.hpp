@@ -9,14 +9,34 @@ protected:
   int health;
   int defense;
   int strength;
+  
+  int currentHealth;
 
+  int healthBonus;
+  int defenseBonus;
+  int strengthBonus;
 public:
-  Damageable(std::string name, int gold, int health, int defense, int strength) : Character(name, gold), health(health), defense(defense), strength(strength) {}
+  Damageable(std::string name, int gold, int health, int defense, int strength) : Character(name, gold), health(health), defense(defense), strength(strength) {
+    this->currentHealth = health;
+    this->healthBonus = 0;
+    this->defenseBonus = 0;
+    this->strengthBonus = 0;
+  }
   bool isAlive();
 
   int takeDamage(int damage);
+  
+  int getCurrentHealth();
 
-  std::string attack(Damageable* target, std::string attackName, int damage);
+  int getHealth();
+  int getDefense();
+  int getStrength();
+
+  void addStrengthBonus(int bonus);
+  void addDefenseBonus(int bonus);
+  void addHealthBonus(int bonus);
+
+  int attack(Damageable* target, int damage);
 
 };
 
