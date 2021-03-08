@@ -14,6 +14,7 @@ public:
     std::string getAttack(int index);
     std::string getItemType(int index);
     void giveGold(int bonus) { gold += bonus; }
+    void useItem();
     int attack(Damageable* target); // Does Calculations and Returns Them for Damage Dealt
 
 }
