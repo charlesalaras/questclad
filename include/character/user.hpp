@@ -5,6 +5,8 @@ class User: public Damageable{
 
 private:
     int level;
+    int currentArmor;
+    int currentWeapon;
     vector<Skill*> skills;
     vector<Item*> inventory;
     UserInterface ui;
@@ -16,5 +18,8 @@ public:
     void giveGold(int bonus) { gold += bonus; }
     void useItem(int index);
     int attack(Damageable* target); // Does Calculations and Returns Them for Damage Dealt
+    void setArmor(Item* armor);
+    void setWeapon(Item* weapon);
+    void removeItem(Item* consumable);
 
 }

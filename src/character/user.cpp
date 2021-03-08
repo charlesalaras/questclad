@@ -14,3 +14,14 @@ void User::useItem(int index) {
    inventory.at(index)->accept(this);
 }
 int User::attack(Damageable* target) {}
+void setArmor(Item* armor) {
+   currentArmor = armor;
+}
+void setWeapon(Item* weapon) {
+   currentWeapon = weapon;
+}
+void removeItem(Item* consumable) {
+   std::vector<int>::iterator vit = inventory.find(consumable);
+   delete inventory.at(vit - inventory.begin());
+   inventory.erase(v);
+}
