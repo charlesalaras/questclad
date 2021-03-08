@@ -27,7 +27,7 @@ public:
    void accept(User* character) {
       if(type == 0) {
          character->addStrengthBonus(effect);
-         character->setArmor(this);
+         character->setWeapon(this);
       }
       if(type == 1) {
          character->addDefenseBonus(effect);
