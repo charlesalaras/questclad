@@ -1,7 +1,9 @@
 #ifndef EVENT_HPP
 #define EVENT_HPP
 
+#include "damageable.hpp"
 #include "character.hpp"
+#include "user.hpp"
 #include <ncurses.h>
 #include <cmath> // For Rand
 #include <time.h>
@@ -13,6 +15,7 @@ private:
    int row;
    int col;
    int enemyNumber;
+   Factory* enemyFactory;
    Enemy* enemy1;
    Enemy* enemy2;
    Enemy* enemy3;

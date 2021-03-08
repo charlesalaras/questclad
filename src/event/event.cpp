@@ -1,4 +1,4 @@
-#include "event/event_handler.hpp"
+#include "event/event.hpp"
 #include "event/event_bus.hpp"
 /*
 getch() is used intuitively as a buffer throughout the run() function.
@@ -8,17 +8,23 @@ advance an event at their own pace, but does create risk of being
 infinitely stuck in a state of waiting (which could produce some scary bug)
 For now, we presume that if any key is entered, let's advance through.
 */
-Event::Event(User* maincharacter, string input)
-: user(maincharacter)
+Event::Event(User* maincharacter, string input, int enemies)
+: user(maincharacter), enemyNumber(enemies)
 {
+   getmaxyx(stdscr, row, col);
+   eventBox = newwin(row / 2, col, 0, 0);
    if(input == "Mountain") {
-
+      // Build Mountain Enemmies
+      enemyFactory = new MountainFactory();
+      
    }
    if(input == "Cavern") {
-
+      // Build Cavern Enemies
+      enemyFactory = new CavernFactory();
    }
    if(input == "Desert") {
-      
+      // Build Desert Enemies
+      enemyFactory = new DesertFactory();
    }
 }
 
@@ -27,10 +33,12 @@ void Event::run() {
    wclear(eventBox);
    box(eventBox, 0, 0); // drawBox
    printHP(); // This will print the enemy HP during passing moments
-   std::pair<int, int> choice = user->getChoice(); // Get Choice from User
+   wrefresh(eventBox);
+   refresh();
+   std::pair<int, int> choice = user->drawInt(); // Get Choice from User
    if(choice->first == 0) { // Attack
       Enemy* target = getAliveEnemy();
-      int damageDealt = user->attack(getAliveEnemy()); // User should attack whatever enemy it can
+      int damageDealt = user->attack(getAliveEnemy(), choice->second); // User should attack whatever enemy it can
       std::string attackText = user->getName() + " dealt " + to_string(damageDealt) + " to " + target->getName() + " using " + user->getAttack(choice->second) + "!";
       mvwprintw(eventBox, row / 2, 2, attackText.c_str());
       wrefresh(eventBox);
@@ -61,21 +69,21 @@ void Event::run() {
    int damageTaken = 0;
    int enemyAttack = rand() % enemyNumber; // Choose who Attacks for Enemy
    if(enemyAttack == 0) { // Enemy1 Attacks
-      damageTaken = enemy1->attack(user);
+      damageTaken = enemy1->attack(user, 0);
       enemyText = enemy1->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy1->getDialogue + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
       getch();
    }
    if(enemyAttack == 1) { // Enemy1 Attacks
-      damageTaken = enemy2->attack(user);
+      damageTaken = enemy2->attack(user, 0);
       enemyText = enemy2->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy2->getDialogue + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
       getch();
    }
    if(enemyAttack == 2) { // Enemy1 Attacks
-      damageTaken = enemy3->attack(user);
+      damageTaken = enemy3->attack(user, 0);
       enemyText = enemy3->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy3->getDialogue + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
@@ -124,21 +132,21 @@ void Event::printHP() {
    std::string health3;
    if(enemyNumber == 3) {
       health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, 2, health);
+      mvwprintw(eventBox, (row / 2) - 1, col / 3, health);
       health2 = "HP: " + to_string(enemy2->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, 2, health2);
+      mvwprintw(eventBox, (row / 2), col / 3, health2);
       health3 = "HP: " + to_string(enemy3->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, 2, health3);
+      mvwprintw(eventBox, (row / 2) + 1, col / 3, health3);
    }
    if(enemyNumber == 2) {
       health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, (row / 2), 2, health);
+      mvwprintw(eventBox, (row / 2), col / 3, health);
       health2 = "HP: " + to_string(enemy2->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, 2, health2);
+      mvwprintw(eventBox, (row / 2) - 1, col / 3, health2);
    }
    else {
       health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, row / 2, 2 health);
+      mvwprintw(eventBox, row / 2, col / 3, health);
    }
    wrefresh(eventBox);
 }
