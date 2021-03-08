@@ -1,5 +1,5 @@
 #include "game.hpp"
-#include <ncurses>
+#include <ncurses.h>
 #include <fstream>
 #include <time.h>
 #include <string>
