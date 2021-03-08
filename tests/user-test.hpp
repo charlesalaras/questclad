@@ -6,30 +6,59 @@
 #include "enemy.hpp"
 #include "user.hpp"
 
-// Test The Warrior Elements of User
-TEST(UserTest, WarriorTest) {
+TEST(UserTest, UseItem) {
+   User* dummy = new User("dummy", 0);
+   dummy->removeItem(0);
+   delete dummy;
+}
 
+TEST(UserTest, CurrentHealth) {
+   User* dummy = new User("dummy", 0);
+   dummy->takeDamage(10);
+   EXPECT_EQ(dummy->currentHealth(), 40);
+   delete dummy;
 }
-// Test The Swordsman Elements of User
-TEST(UserTest, SwordsmanTest) {
-   
+
+TEST(UserTest, Health) {
+   User* dummy = new User("dummy", 0);
+   dummy->takeDamage(10);
+   EXPECT_EQ(dummy->currentHealth(), 50);
+   delete dummy;
 }
-// Test The Mage Elements of User
-TEST(UserTest, MageTest) {
-   
+
+TEST(UserTest, Defense) {
+   User* dummy = new User("dummy", 0);
+   EXPECT_EQ(dummy->getDefense(), 0);
+   delete dummy;
 }
-// Tests is Skills are Instantiated Correctly
-TEST(UserTest, SkillsTest) {
-   
+
+TEST(UserTest, Strength) {
+   User* dummy = new User("dummy", 0);
+   EXPECT_EQ(dummy->getStrength(), 5);
+   delete dummy;
 }
-// Tests if Inventory Is Spawned Correctly
-TEST(UserTest, InventoryTest) {
-   
+
+TEST(UserTest, HealthBonus) {
+   User* dummy = new User("dummy", 0);
+   dummy->addHealthBonus(10);
+   EXPECT_EQ(dummy->getCurrentHealth(), 60);
+   delete dummy;
 }
-// Tests is Constructor Works Correctly
-TEST(UserTest, ConstructorTest) {
-   
+
+TEST(UserTest, DefenseBonus) {
+   User* dummy = new User("dummy", 0);
+   dummy->addDefenseBonus(10);
+   EXPECT_EQ(dummy->getDefense(), 10);
+   delete dummy;
 }
+
+TEST(UserTest, StrengthBonus) {
+   User* dummy = new User("dummy", 0);
+   dummy->addStrengthBonus(10);
+   EXPECT_EQ(dummy->getStrength(), 15);
+   delete dummy;
+}
+
 // Tests Attack Function
 TEST(UserTest, AttackTest) {
    Enemy* dummyTarget = new Enemy("target", 10, 10, 10);
@@ -39,6 +68,8 @@ TEST(UserTest, AttackTest) {
    testuser->attack(dummyTarget, 2); // Attack with Attack 3
    testuser->attack(dummyTarget, 3); // Attack with Attack 4
    EXPECT_EQ(dummyTarget->getCurrentHealth(), -40);
+   delete testuser;
+   delete dummyTarget;
 }
 // Tests Gold Given Correctly
 TEST(UserTest, GoldTest) {
