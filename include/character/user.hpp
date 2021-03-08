@@ -1,5 +1,6 @@
 #include"damageable.hpp"
 #include<vector>
+#include <pair>
 
 class User: public Damageable{
 
@@ -21,5 +22,5 @@ public:
     void setArmor(Item* armor);
     void setWeapon(Item* weapon);
     void removeItem(Item* consumable);
-
+    std::pair<int, int> getChoice() { return ui->drawInt() };
 }
