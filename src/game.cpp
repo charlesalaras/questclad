@@ -1,8 +1,13 @@
 #include "game.hpp"
-// #include <ncurses>
+#include <ncurses>
 #include <fstream>
 #include <time.h>
 #include <string>
+
+// CLASSES
+// WARRIOR == 0
+// SWORDSMAN == 1
+// MAGE == 2
 
 // 2021-02-13T03:00:53
 Game::Game() {
@@ -129,7 +134,7 @@ void Game::build() {
       wrefresh(instanceWin);
       selection = wgetch(instanceWin);
    }
-   mainCharacter = new User(inputname, 10, skillType);
+   mainCharacter = new User(inputname, skillType);
 }
 
 void Game::runGame() {
