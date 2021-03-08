@@ -24,6 +24,20 @@ public:
       mvprintw(2 + i, 2, output.c_str());
    }
    int getType() { return type; }
+   void accept(User* character) {
+      if(type == 0) {
+         character->addStrengthBonus(effect);
+         character->setArmor(this);
+      }
+      if(type == 1) {
+         character->addDefenseBonus(effect);
+         character->setArmor(this);
+      }
+      if(type == 2) {
+         character->addHealthBonus(effect);
+         character->removeItem(this);
+      }
+   }
 };
 
 #endif // __ITEM_HPP__
