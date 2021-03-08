@@ -35,7 +35,7 @@ void Event::run() {
    printHP(); // This will print the enemy HP during passing moments
    wrefresh(eventBox);
    refresh();
-   std::pair<int, int> choice = user->drawInt(); // Get Choice from User
+   std::pair<int, int> choice = user->getChoice(); // Get Choice from User
    if(choice->first == 0) { // Attack
       Enemy* target = getAliveEnemy();
       int damageDealt = user->attack(getAliveEnemy(), choice->second); // User should attack whatever enemy it can
