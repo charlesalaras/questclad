@@ -1,7 +1,7 @@
 #include "user.hpp"
 // Skill Format: Name, Damage, User
 // Item Format: Name, Effect, ItemType, User
-User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1) {
+User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1), classtype(classtype) {
    if(classtype == 0) {
       skills.push_back(new Skill("Punch", 5, 0));
       skills.push_back(new Skill("Jab", 8, 0));
@@ -32,6 +32,7 @@ User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1) {
    inventory.push_back(new Item("Traveller's Clothes", 2, 1, -1));
    inventory.push_back(new Item("Heal Potion", 10, 2, -1));
    inventory.push_back(new Item("Big Heal Potion", 25, 2, -1));
+   ui = UserInterface(skills, inventory, classtype);
 }
 User::~User() {
    for(int i = 0; i < skills.size(); i++) {
