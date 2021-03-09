@@ -1,6 +1,8 @@
 #ifndef __ITEM_HPP__
 #define __ITEM_HPP__
 
+#include "character.hpp"
+#include "user.hpp"
 #include <string>
 
 class Item {
@@ -21,6 +23,15 @@ public:
       }
       if(type == 2) {
          output += "\tConsumable";
+      }
+      if(whoCanUse == 0) {
+         output += "\tWarrior";
+      }
+      if(whoCanUse == 1) {
+         output += "\tSwordsman";
+      }
+      if(whoCanUse == 2) {
+         output += "\tMage";
       }
       mvprintw(2 + i, 2, output.c_str());
    }
