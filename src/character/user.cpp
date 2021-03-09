@@ -29,7 +29,7 @@ User::User(std::string name, int classtype) {
       currentWeapon = 0;
       currentArmor = 1;
    }
-   inventory.push_back(new Item("Traveller's Clothes", 2, 1, 0));
+   inventory.push_back(new Item("Traveller's Clothes", 2, 1, -1));
    inventory.push_back(new Item("Heal Potion", 10, 2, -1));
    inventory.push_back(new Item("Big Heal Potion", 25, 2, -1));
 }
