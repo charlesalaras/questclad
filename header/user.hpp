@@ -10,6 +10,6 @@ public:
     UseInterface ui;
     int classtype;
 
-    User() {}
+    User():Damageable() {}
 
 }
