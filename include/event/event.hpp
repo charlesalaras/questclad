@@ -1,8 +1,10 @@
 #ifndef EVENT_HPP
 #define EVENT_HPP
 
+#include "enemy_factory.hpp"
 #include "damageable.hpp"
 #include "character.hpp"
+#include "enemy.hpp"
 #include "user.hpp"
 #include <ncurses.h>
 #include <cmath> // For Rand
@@ -26,11 +28,8 @@ private:
    int getEnemyGold(); // Sum up all Enemy gold
    void printHP(); // Print Enemies' Health
 
-protected:
-  bool finish();
-
 public:
-  Event(User* maincharacter, string input);
+  Event(User* maincharacter, string input, int enemies);
   void run();
 
 };

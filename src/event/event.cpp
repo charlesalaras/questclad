@@ -16,7 +16,6 @@ Event::Event(User* maincharacter, string input, int enemies)
    if(input == "Mountain") {
       // Build Mountain Enemmies
       enemyFactory = new MountainFactory();
-      
    }
    if(input == "Cavern") {
       // Build Cavern Enemies
@@ -29,14 +28,15 @@ Event::Event(User* maincharacter, string input, int enemies)
 }
 
 void Event::run() {
-  while(user->getHealth() > 0 && sumEnemiesHealth() > 0) {
+  while(user->getCurrentHealth() > 0 && sumEnemiesHealth() > 0) {
    wclear(eventBox);
    box(eventBox, 0, 0); // drawBox
    printHP(); // This will print the enemy HP during passing moments
-   wrefresh(eventBox);
    refresh();
    std::pair<int, int> choice = user->getChoice(); // Get Choice from User
    if(choice->first == 0) { // Attack
+      wclear(eventBox);
+      box(eventBox, 0, 0);
       Enemy* target = getAliveEnemy();
       int damageDealt = user->attack(getAliveEnemy(), choice->second); // User should attack whatever enemy it can
       std::string attackText = user->getName() + " dealt " + to_string(damageDealt) + " to " + target->getName() + " using " + user->getAttack(choice->second) + "!";
@@ -45,6 +45,8 @@ void Event::run() {
       getch();
    }
    if(choice->first == 1) { // Use Consumable
+      wclear(eventBox);
+      box(eventBox, 0, 0);
       int boostGiven = user->useItem(choice->second); // Use Item at Specified Index
       std::string boostText = user->getName() + " gained " + to_string(boostGiven) + " boost in " + user->getItemType(choice->second);
       mvwprintw(eventBox, row / 2, 2, boostText.c_str());
@@ -52,6 +54,8 @@ void Event::run() {
       getch();
    }
    if(choice->first == 2) { // Attempt Escape
+      wclear(eventBox);
+      box(eventBox, 0, 0);
       srand(time(NULL));
       if((rand() % 100) < 25) { // User has a 26% chance to escape the event
          std::string runText = user->getName() + " escaped the battle successfully!";
@@ -64,27 +68,29 @@ void Event::run() {
       }
    }
    // Enemy Turn
+   wclear(eventBox);
+   box(eventBox, 0, 0);
    srand(time(NULL));
    std::string enemyText;
    int damageTaken = 0;
    int enemyAttack = rand() % enemyNumber; // Choose who Attacks for Enemy
    if(enemyAttack == 0) { // Enemy1 Attacks
       damageTaken = enemy1->attack(user, 0);
-      enemyText = enemy1->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy1->getDialogue + "!";
+      enemyText = enemy1->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy1->getDialogue() + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
       getch();
    }
    if(enemyAttack == 1) { // Enemy1 Attacks
       damageTaken = enemy2->attack(user, 0);
-      enemyText = enemy2->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy2->getDialogue + "!";
+      enemyText = enemy2->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy2->getDialogue() + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
       getch();
    }
    if(enemyAttack == 2) { // Enemy1 Attacks
       damageTaken = enemy3->attack(user, 0);
-      enemyText = enemy3->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy3->getDialogue + "!";
+      enemyText = enemy3->getName() + "strikes for " + to_string(damageTaken) + "damage! " + enemy3->getDialogue() + "!";
       mvwprintw(eventBox, row / 2, 2, enemyText.c_str());
       wrefresh(eventBox);
       getch();
@@ -102,6 +108,7 @@ void Event::run() {
    box(eventBox, 0, 0);
    mvwprintw(eventBox, row / 2, 2, successPrompt.c_str());
    wrefresh(eventBox);
+   getch();
   }
 }
 
@@ -119,7 +126,7 @@ Enemy* Event::getAliveEnemy() {
 }
 
 int Event::sumEnemiesHealth() {
-   return enemy1->getHealth() + enemy2->getHealth() + enemy3->getHealth();
+   return enemy1->getCurrentHealth() + enemy2->getCurrentHealth() + enemy3->getCurrentHealth();
 }
 
 int Event::getEnemyGold() {
@@ -131,22 +138,32 @@ void Event::printHP() {
    std::string health2;
    std::string health3;
    if(enemyNumber == 3) {
-      health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, col / 3, health);
-      health2 = "HP: " + to_string(enemy2->getHealth());
-      mvwprintw(eventBox, (row / 2), col / 3, health2);
-      health3 = "HP: " + to_string(enemy3->getHealth());
-      mvwprintw(eventBox, (row / 2) + 1, col / 3, health3);
+      if(enemy1->getCurrentHealth() > 0) {
+         health = "HP: " + to_string(enemy1->getCurrentHealth());
+         mvwprintw(eventBox, (row / 2) - 1, col / 3, health);
+      }
+      if(enemy2->getCurrentHealth() > 0) {
+         health2 = "HP: " + to_string(enemy2->getCurrentHealth());
+         mvwprintw(eventBox, (row / 2), col / 3, health2);
+      }
+      if(enemy3->getCurrentHealth() > 0) {
+         health3 = "HP: " + to_string(enemy3->getCurrentHealth());
+         mvwprintw(eventBox, (row / 2) + 1, col / 3, health3);
+      }
    }
    if(enemyNumber == 2) {
-      health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, (row / 2), col / 3, health);
-      health2 = "HP: " + to_string(enemy2->getHealth());
-      mvwprintw(eventBox, (row / 2) - 1, col / 3, health2);
+      if(enemy1->getCurrentHealth() > 0) {
+         health = "HP: " + to_string(enemy1->getCurrentHealth());
+         mvwprintw(eventBox, (row / 2), col / 3, health);
+      }
+         health2 = "HP: " + to_string(enemy2->getCurrentHealth());
+         mvwprintw(eventBox, (row / 2) + 1, col / 3, health2);
    }
    else {
-      health = "HP: " + to_string(enemy1->getHealth());
-      mvwprintw(eventBox, row / 2, col / 3, health);
+      if(enemy1->getCurrentHealth() > 0) {
+         health = "HP: " + to_string(enemy1->getCurrentHealth());
+         mvwprintw(eventBox, row / 2, col / 3, health);
+      }
    }
    wrefresh(eventBox);
 }
