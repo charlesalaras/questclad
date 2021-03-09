@@ -1,5 +1,5 @@
 #include "character/user.hpp"
-#include "interface/skill_interface.hpp"
+#include "interface/menu.hpp"
 #include "character/mock_skill.hpp"
 #include <ncurses.h>
 #include <iostream>
@@ -19,12 +19,7 @@ int main() {
   box(win, 0, 0);
   keypad(win, true);
 
-  User newChar("name", 100, 10, 10, 10);
-  newChar.addSkill(new MockSkill("skill 1", 1));
-  newChar.addSkill(new MockSkill("skill 2", 1));
-  
-  SkillInterface interface(win, &newChar);
-  interface.draw();
+  Menu interface(win, {"skill 1", "skill 2", "skill 3"}, 10, 10);
 
   while(true) {
     interface.draw();
