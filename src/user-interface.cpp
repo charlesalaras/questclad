@@ -67,7 +67,7 @@ pair<int, int> UserInterface::drawInt() {
    switch(highlight) {
       // Tell Event That Player Wants to Attack With Attack Specified
       case 0:
-         return std::make_pair(0, skillInt->DrawInt());
+         return std::make_pair(0, skillInt->DrawInt(uiwin));
          break;
       // Tell Event That Player Wants to Access Inventory Using Item Specified
       case 1:

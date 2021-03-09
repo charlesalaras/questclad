@@ -4,6 +4,9 @@
 #include <ncurses.h>
 #include "item.hpp"
 #include "skill.hpp"
+#include "character.hpp"
+#include "damageable.hpp"
+#include "user.hpp"
 #include <vector>
 #include <string>
 #include <pair>
