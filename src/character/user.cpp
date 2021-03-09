@@ -1,7 +1,7 @@
-#include"user.hpp"
+#include "user.hpp"
 // Skill Format: Name, Damage, User
 // Item Format: Name, Effect, ItemType, User
-User::User(std::string name, int classtype) {
+User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1) {
    if(classtype == 0) {
       skills.push_back(new Skill("Punch", 5, 0));
       skills.push_back(new Skill("Jab", 8, 0));
