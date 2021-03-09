@@ -58,7 +58,7 @@ public:
     unpost_menu(this->menu);
   }
 
-  virtual std::string update(int c) {
+  virtual int update(int c) {
     switch(c) {
       case KEY_DOWN:
         menu_driver(this->menu, REQ_DOWN_ITEM);
@@ -73,9 +73,9 @@ public:
         menu_driver(this->menu, REQ_LEFT_ITEM);
         break;
       case 10:
-        return "end";
+        return 1;
     }
-    return ""; 
+    return 0; 
   }
 };
 

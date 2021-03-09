@@ -29,8 +29,8 @@ int main() {
   while(true) {
     interface.draw();
     int c = wgetch(win);
-    std::string res = interface.update(c);
-    if(res == "end") {
+    int res = interface.update(c);
+    if(res == 1) {
       break;
     }
   }

@@ -11,9 +11,9 @@ SET(SRC
   src/character/damageable.cpp
 )
 
-ADD_EXECUTABLE(test tests/test.cpp 
+ADD_EXECUTABLE(test tests/test.cpp
   ${SRC}
-  src/test-main.cpp
+  test-main.cpp
 )
 
 ADD_EXECUTABLE(main main.cpp
