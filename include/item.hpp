@@ -24,6 +24,9 @@ public:
       if(type == 2) {
          output += "\tConsumable";
       }
+      /*
+      Sometimes, the constructor will pass whoCanUse as -1. In that case, it won't print a class specific (For example, heal pots, etc.)
+      */
       if(whoCanUse == 0) {
          output += "\tWarrior";
       }
