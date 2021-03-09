@@ -7,7 +7,7 @@ public:
     int level;
     vector<Skill*> skills;
     vector<Item*> item;
-    UseInterface ui;
+    UserInterface ui;
     int classtype;
 
     User():Damageable() {}
