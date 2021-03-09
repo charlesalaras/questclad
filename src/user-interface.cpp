@@ -4,14 +4,17 @@ UserInterface::UserInterface(vector<Skill*> skills, vector<Item*> inventory, int
 : skillInt(new SkillInterface(skills)), inventoryInt(new InventoryInterface(inventory)) {
    //Warrior Color Scheme
    if(type == 0) {
+      init_pair(10, COLOR_RED, COLOR_BLACK);
       colors = 10; // Pair # for Red on Black
    }
    // Swordsman Color Scheme
    if(type == 1) {
+      init_pair(11, COLOR_GREEN, COLOR_BLACK);
       colors = 11; // Pair # for Green on Black
    }
    // Mage Color Scheme
    if(type == 2) {
+      init_pair(12, COLOR_BLUE, COLOR_BLACK);
       colors = 12; // Pair # for Blue on Black
    }
    getmaxyx(stdscr, introw, intcol);
