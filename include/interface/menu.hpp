@@ -1,5 +1,5 @@
-#ifndef SKILL_INTERFACE_HPP
-#define SKILL_INTERFACE_HPP
+#ifndef MENU_HPP
+#define MENU_HPP
 
 #include "interface/interface.hpp"
 #include <ncurses.h>
@@ -26,18 +26,20 @@ public:
   }
 
   virtual void draw() {
-    for(int i = 0; i < this->options.size(); ++i) {
-      if(this->selection == i) {
+    for(int i = 0; i < options.size(); ++i) {
+      if(selection == i) {
         wattron(this->win, A_REVERSE);
       }
 
-      mvwprintw(this->win, this->startX + i + 1, this->startY + 1, this->options[i].c_str());
+      mvwprintw(this->win, startX + i + 1, startY + 1, options[i].c_str());
 
-      if(this->selection == i) {
+      if(selection == i) {
         wattroff(this->win, A_REVERSE);
       }
     }
+
   }
+
 
   virtual int update(int c) {
     switch(c) {
@@ -48,7 +50,7 @@ public:
         selection--;
         break;
       case 10:
-        return 1;
+        return selection + 1;
     }
     selection = std::min((int)this->options.size() - 1, std::max(0, selection));
     return 0; 

@@ -12,7 +12,7 @@ private:
 public:
   Skill(std::string name, int classType) : name(name), classType(classType) { }
    
-  std::string& getName() {
+  std::string getName() {
     return this->name;
   }
 

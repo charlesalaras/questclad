@@ -1,5 +1,8 @@
 #include "character/user.hpp"
-#include "interface/menu.hpp"
+#include "interface/battle_interface.hpp"
+#include "interface/item_interface.hpp"
+#include "interface/skill_interface.hpp"
+#include "character/item.hpp"
 #include "character/mock_skill.hpp"
 #include <ncurses.h>
 #include <iostream>
@@ -19,15 +22,22 @@ int main() {
   box(win, 0, 0);
   keypad(win, true);
 
-  Menu interface(win, {"skill 1", "skill 2", "skill 3"}, 10, 10);
+  User user("name", 10, 100, 100, 100); 
+  for(int i = 0; i < 5; ++i) {
+    user.addSkill(new MockSkill("skill " + std::to_string(i), 0));
+    user.addItem(new Item("item " + std::to_string(i)));
+  }
+
+  SkillInterface skillInter(win, &user);
+  ItemInterface itemInter(win, &user);
+
+  BattleInterface interface(win, &skillInter, &itemInter); 
 
   while(true) {
+    wclear(win);
     interface.draw();
     int c = wgetch(win);
     int res = interface.update(c);
-    if(res == 1) {
-      break;
-    }
   }
   
   delwin(win);
