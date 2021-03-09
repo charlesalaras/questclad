@@ -10,6 +10,7 @@ private:
    int type; // Is this a weapon, armor piece, or consumable?
    int whoCanUse; // What class can use it?
 public:
+   Item(std::string name, int effect, int type, int whoCanUse): name(name), effect(effect), type(type), whoCanUse(whoCanUse) {}
    void printItem(int i) {
       std::string output = name + "\t" + to_string(effect);
       if(type == 0) {
