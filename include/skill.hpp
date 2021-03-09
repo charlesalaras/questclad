@@ -3,13 +3,11 @@
 
 #include <string>
 
-class Skill {
-private:
+struct Skill {
    std::string name;
    int damage;
    int classType;
-public:
-   Skill(string name, int damage): name(name), damage(damage) {};
+   Skill(string name, int damage, int classType): name(name), damage(damage): name(name), damage(damage), classType(classType) {};
 };
 
 #endif // __SKILL_HPP__
