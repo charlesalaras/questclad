@@ -2,43 +2,34 @@
 #define USER_HPP
 
 #include "character/damageable.hpp"
-#include "character/skill.hpp"
 #include "character/item.hpp"
+#include "character/skill.hpp"
+#include <vector>
 
-class User : public Damageable {
+class Item;
+class Skill;
+
+class User: public Damageable{
+
 private:
-  std::vector<Skill*> skills;
-  std::vector<Item*> inventory;
+    int level;
+    int currentArmor;
+    int currentWeapon;
+    std::vector<Skill*> skills;
+    std::vector<Item*> inventory;
+    int classtype;
 
 public:
-  User(std::string name, int gold, int health, int defense, int strength) : Damageable(name, gold, health, defense, strength) {
-  
-  }
-	
-  ~User() {
-    for(int i = 0; i < skills.size(); ++i) {
-      delete skills[i];
-    }
-    for(int i = 0; i < inventory.size(); ++i) {
-      delete inventory[i];
-    }
-  }
-
-  std::vector<Skill*> getSkills() {
-    return skills;
-  }
-
-  std::vector<Item*> getInventory() {
-    return inventory;
-  }
-
-  void addSkill(Skill* skill) {
-    skills.push_back(skill);
-  }
-  
-  void addItem(Item* item) {
-    inventory.push_back(item);
-  }
+    User(std::string name, int classtype);
+    ~User();
+    std::string getAttack(int index);
+    int getItemType(int index);
+    std::vector<Skill*> getSkills();
+    std::vector<Item*> getItems();
+    void useItem(int index);
+    void setArmor(Item* armor);
+    void setWeapon(Item* weapon);
+    void removeItem(Item* consumable);
 };
 
 #endif

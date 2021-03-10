@@ -11,13 +11,9 @@ private:
   int classType;
 
 public:
-  Skill(std::string name, int damage, int classType) : name(name), damage(damage), classType(classType) { }
-   
-  std::string getName() {
-    return this->name;
-  }
-
-  virtual void use(Damageable* target) = 0;
+  Skill(std::string name, int damage, int classType);
+  std::string getName();
+  virtual void use(Damageable* target);
 
 };
 

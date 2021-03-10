@@ -9,6 +9,9 @@ INCLUDE_DIRECTORIES(include)
 SET(SRC
   src/character/enemy.cpp
   src/character/damageable.cpp
+  src/character/user.cpp
+  src/character/skill.cpp
+  src/character/item.cpp
 )
 
 ADD_EXECUTABLE(test tests/test.cpp

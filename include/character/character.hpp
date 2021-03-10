@@ -5,7 +5,7 @@
 #include <vector>
 
 class Character {
-private:
+protected:
   int gold;
   const std::string name;
 

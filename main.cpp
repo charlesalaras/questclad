@@ -3,7 +3,6 @@
 #include "interface/item_interface.hpp"
 #include "interface/skill_interface.hpp"
 #include "character/item.hpp"
-#include "character/mock_skill.hpp"
 #include <ncurses.h>
 #include <iostream>
 
@@ -22,11 +21,7 @@ int main() {
   box(win, 0, 0);
   keypad(win, true);
 
-  User user("name", 10, 100, 100, 100); 
-  for(int i = 0; i < 5; ++i) {
-    user.addSkill(new MockSkill("skill " + std::to_string(i), 0));
-    user.addItem(new Item("item " + std::to_string(i)));
-  }
+  User user("name", 1); 
 
   Enemy enemy("Goblin", 10, 100, 10, 10, "afsd");
 

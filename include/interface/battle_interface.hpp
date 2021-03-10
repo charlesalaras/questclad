@@ -8,19 +8,34 @@
 
 class BattleInterface : public Interface {
 private:
+  WINDOW* win;
   Interface* skillInter;
   Interface* itemInter;
+  User* user;
   Enemy* enemy;
   Menu* menu;
   int selection = 0;
 
+
+  std::string userName;
+  std::string userStats;
+  std::string enemyName;
+  std::string enemyStats;
+
+
 void drawStats() {
-  mvwprintw(win, 2, 2, std::to_string(user->getCurrentHealth()) + " / " + std::to_string(user->getHealth()));
-  mvwprintw(win, 20, 2, std::to_string(enemy->getCurrentHealth()) + " / " + std::to_string(enemy->getHealth());
+
+  userStats = std::to_string(user->getCurrentHealth()) + " / " + std::to_string(user->getHealth());
+  enemyStats = std::to_string(enemy->getCurrentHealth()) + " / " + std::to_string(enemy->getHealth());
+  mvwprintw(win, 1, 2, userName.c_str());
+  mvwprintw(win, 2, 2, userStats.c_str());
+  mvwprintw(win, 1, 80, enemyName.c_str());
+  mvwprintw(win, 2, 80, enemyStats.c_str());
 }
 
 public:
-  BattleInterface(WINDOW* win, Interface* skillInter, Interface* itemInter, User* user, Enemy* enemy) : skillInter(skillInter), itemInter(itemInter), enemy(enemy) {
+  BattleInterface(WINDOW* win, Interface* skillInter, Interface* itemInter, User* user, Enemy* enemy) : win(win), skillInter(skillInter), itemInter(itemInter), user(user), 
+  enemy(enemy), userName(user->getName()), enemyName(enemy->getName()) {
     menu = new Menu(win, {"Attack", "Items", "Run"}, 10, 10);
   }
 
@@ -54,6 +69,7 @@ public:
           selection = 0;
           return 10 + res;
         }
+        break;
       }
       case 2: {
         int res = itemInter->update(c);
@@ -61,7 +77,10 @@ public:
           selection = 0;
           return 20 + res;
         }
+        break;
       }
+      case 3:
+        return 3;
     }
     return 0;
   }
