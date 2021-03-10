@@ -14,6 +14,7 @@ private:
   User* user;
   Enemy* enemy;
   Menu* menu;
+  int classtype;
   int selection = 0;
 
 
@@ -34,8 +35,20 @@ void drawStats() {
 }
 
 public:
-  BattleInterface(WINDOW* win, Interface* skillInter, Interface* itemInter, User* user, Enemy* enemy) : win(win), skillInter(skillInter), itemInter(itemInter), user(user), 
-  enemy(enemy), userName(user->getName()), enemyName(enemy->getName()) {
+  BattleInterface(WINDOW* win, Interface* skillInter, Interface* itemInter, User* user, Enemy* enemy, int classtype) : win(win), skillInter(skillInter), itemInter(itemInter), user(user), 
+  enemy(enemy), userName(user->getName()), enemyName(enemy->getName()), classtype(classtype) {
+    if(classtype == 0) {
+      init_pair(10, COLOR_RED, COLOR_BLACK);
+      wbkgd(win, COLOR_PAIR(10));
+    }
+    if(classtype == 1) {
+      init_pair(11, COLOR_BLUE, COLOR_BLACK);
+      wbkgd(win, COLOR_PAIR(11));
+    }
+    if(classtype == 2) {
+      init_pair(12, COLOR_GREEN, COLOR_BLACK);
+      wbkgd(win, COLOR_PAIR(12));
+    }
     menu = new Menu(win, {"Attack", "Items", "Run"}, 4, 2);
   }
 
@@ -46,6 +59,7 @@ public:
   }
 
   virtual void draw() {
+    box(win, 0, 0);
     drawStats();
     switch(selection) {
       case 0:

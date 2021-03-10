@@ -30,6 +30,7 @@ Game::~Game() {
 
 void Game::build() {
    clear();
+   wbkgd(stdscr, COLOR_PAIR(1));
    // Initialize Variables
    int row = 0; // Window Row
    int col = 0; // Window Column

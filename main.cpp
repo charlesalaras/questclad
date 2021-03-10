@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
     initscr(); // Initialize Screen
     curs_set(0); // Hide Cursor
     start_color(); // Start Colors (Maybe Add a Check Before Later On?)
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
     init_pair(2, COLOR_BLACK, COLOR_CYAN); // Initialize Black Text on Cyan
     init_pair(3, COLOR_WHITE, COLOR_BLACK); // Initialize White Text on Black
     getmaxyx(stdscr, row, col); // Get Maximum Space of Window
@@ -80,10 +81,10 @@ int main(int argc, char** argv) {
 }
 
 void printTitle(int row, int col) {
-    init_pair(1, COLOR_RED, COLOR_CYAN);
+    init_pair(6, COLOR_RED, COLOR_CYAN);
     init_pair(4, COLOR_WHITE, COLOR_BLUE);
     init_pair(5, COLOR_WHITE, COLOR_WHITE);
-    wbkgd(stdscr, COLOR_PAIR(1));
+    wbkgd(stdscr, COLOR_PAIR(6));
     std::string line0 = "============================================================================================";
     std::string line1 = "   .oooooo.                                         .             oooo                  .o8 ";
     std::string line2 = "  d8P'  `Y8b                                      .o8             `888                 `888 ";

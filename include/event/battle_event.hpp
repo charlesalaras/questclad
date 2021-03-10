@@ -18,7 +18,7 @@ private:
 public:
 
   BattleEvent(WINDOW* win, User* user, Enemy* enemy) : user(user), enemy(enemy) {
-    battleInterface = new BattleInterface(win, new SkillInterface(win, user), new ItemInterface(win, user), user, enemy);
+    battleInterface = new BattleInterface(win, new SkillInterface(win, user), new ItemInterface(win, user), user, enemy, user->getClass());
   } 
 
   ~BattleEvent() {

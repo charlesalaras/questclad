@@ -22,6 +22,7 @@ private:
 public:
     User(std::string name, int classtype);
     ~User();
+    int getClass() { return classtype; }
     std::string getAttack(int index);
     int getItemType(int index);
     Skill* getSkill(int i);
