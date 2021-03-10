@@ -1,9 +1,10 @@
-#include "event_bus.hpp"
-#include "event.hpp"
+#include "event/event_bus.hpp"
+
+EventBus::EventBus() { }
 
 bool EventBus::hasNext() {
   return !this->bus.empty();
-]
+}
 
 Event* EventBus::getNext() {
   Event* next = this->bus.front();
@@ -11,7 +12,7 @@ Event* EventBus::getNext() {
   return next;
 }
 
-void EventBus::register(Event* event) {
+void EventBus::registerEvent(Event* event) {
   this->bus.push_back(event);
 }
 

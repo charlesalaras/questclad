@@ -37,12 +37,13 @@ int main(int argc, char** argv) {
     selection = printMenu(row, col, argc);
     if(argc > 1) {
         switch(selection) {
-            case 0:
+            case 0: {
                 std::cout << "Creating new game...\n";
-                Game gameInstance();
+                Game gameInstance;
                 gameInstance.build();
                 gameInstance.runGame();
                 break;
+            }
             case 1:
                 std::cout << "Loading game...\n";
                 break;
@@ -57,12 +58,13 @@ int main(int argc, char** argv) {
     }
     else {
         switch(selection) {
-            case 0:
+            case 0: {
                 std::cout << "Creating new game...";
-                Game gameInstance();
+                Game gameInstance;
                 gameInstance.build();
                 gameInstance.runGame();
                 break;
+            }
             case 1:
                 std::cout << "Credits rolling...";
                 break;

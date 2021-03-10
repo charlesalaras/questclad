@@ -9,17 +9,16 @@
 
 class MountainFactory : public EnemyFactory {
 private:
-  std::vector<std::string> names = {"Snake", "Boar"};
-  std::vector<std::string> sounds = {"sssss", "moo"};
+  std::vector<std::string> names = {"Snake", "Boar", "Bird"};
 
 public:
 
   MountainFactory() { }
 
-  virtual Enemy getEnemy(int level) {
-    double scale = 1 + level / 10;
-    Enemy newEnemy(this->names[0], 10 * scale, 20 * scale, 5 * scale, 5 * scale, this->sounds[0]);
-    return newEnemy;
+  virtual Enemy* getEnemy(int level) {
+    int i = level % names.size();
+    double scale = 1 + (level / 5.0);
+    return new Enemy(this->names[i], 10 * scale, 20 * scale, 5 * scale, 5 * scale);
   }
 
 };

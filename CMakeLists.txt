@@ -12,6 +12,8 @@ SET(SRC
   src/character/user.cpp
   src/character/skill.cpp
   src/character/item.cpp
+  src/event/event_bus.cpp
+  src/game.cpp
 )
 
 ADD_EXECUTABLE(test tests/test.cpp

@@ -5,14 +5,10 @@
 #include <string>
 
 class Enemy : public Damageable {
-protected:
-  std::string dialogue;
-
 public:
-  Enemy(std::string name, int gold, int health, int defense, int strength, std::string dialogue) : Damageable(name, gold, health, defense, strength), dialogue(dialogue) {};
+  Enemy(std::string name, int gold, int health, int defense, int strength) : Damageable(name, gold, health, defense, strength) {};
   
   int simpleAttack(Damageable* target);  
-  std::string getDialogue();
 };
 
 #endif

@@ -1,8 +1,13 @@
 #include "game.hpp"
-#include <ncurses.h>
+#include "event/battle_event.hpp"
+#include "character/desert_factory.hpp"
+#include "character/mountain_factory.hpp"
+#include "character/cavern_factory.hpp"
 #include <fstream>
 #include <time.h>
 #include <string>
+#include <iostream>
+#include <ctime>
 
 // CLASSES
 // WARRIOR == 0
@@ -40,7 +45,7 @@ void Game::build() {
    getmaxyx(stdscr, row, col);
    winrow = row / 2;
    wincol = col / 2;
-   WINDOW * instanceWin = newwin(winrow, wincol, row / 4, col / 4);
+   instanceWin = newwin(winrow, wincol, row / 4, col / 4);
    keypad(instanceWin, true);
    box(instanceWin, 0, 0);
    // Print Prompt
@@ -112,6 +117,8 @@ void Game::build() {
          mvwprintw(instanceWin, 4 + i*2, (wincol - skills[i].size()) / 2, skills[i].c_str());
          wattroff(instanceWin, A_REVERSE);
       }
+      wrefresh(instanceWin);
+      selection = wgetch(instanceWin);
       // Option Goes Up
       if(selection == KEY_UP) {
          highlight--;
@@ -130,11 +137,22 @@ void Game::build() {
       else if(selection == 10) {
          skillType = highlight;
       }
-      refresh();
-      wrefresh(instanceWin);
-      selection = wgetch(instanceWin);
+      
+      
    }
    mainCharacter = new User(inputname, skillType);
+   DesertFactory desertFac;
+   MountainFactory mountFac;
+   CavernFactory cavFac;
+   for(int i = 0; i < 5; ++i) {
+      events.registerEvent(new BattleEvent(instanceWin, mainCharacter, desertFac.getEnemy(i)));
+   }
+   for(int i = 0; i < 5; ++i) {
+      events.registerEvent(new BattleEvent(instanceWin, mainCharacter, mountFac.getEnemy(i + 5)));
+   }
+   for(int i = 0; i < 5; ++i) {
+      events.registerEvent(new BattleEvent(instanceWin, mainCharacter, cavFac.getEnemy(i + 15)));
+   }
 }
 
 void Game::runGame() {
@@ -145,21 +163,34 @@ void Game::runGame() {
    int col = 0;
    getmaxyx(stdscr,row,col);
    while(events.hasNext()) {
-      clear();
-      mvprintw(row / 2, (col - (storyElements[i].size()) / 2, storyElements[i]);
-      mvprintw((row / 2) + 2, (col - dialogue.size()) / 2, dialogue.c_str());
-      refresh();
-      getch(); // Wait for User Input before continuing
-      clear();
-      getNext().run();
-      if(mainCharacter->getHealth() <= 0) {
+      //clear();
+      //int k = getch();
+      //mvprintw(row / 2, (col - (storyElements[i].size()) / 2), storyElements[i].c_str());
+      //mvprintw((row / 2) + 2, (col - dialogue.size()) / 2, dialogue.c_str());
+      //refresh();
+      //getch(); // Wait for User Input before continuing
+      //clear();
+      Event* curr = events.getNext();
+        
+      while(curr->isActive()) {
+        wclear(instanceWin);
+        curr->draw();
+        wrefresh(instanceWin);
+
+        int c = wgetch(instanceWin);
+        curr->select(c);
+      }
+      delete curr;
+
+      if(mainCharacter->getCurrentHealth() <= 0) {
          endScreen();
          return;
       }
-      saveGame(); // Automatically Saves Game
-      if(passingPrompt()) { // Returns True if User Wants to Quit
-         return;
-      } // Asks User if they Would like to Use / Change Items
+
+      //saveGame(); // Automatically Saves Game
+      //if(passingPrompt()) { // Returns True if User Wants to Quit
+        // return;
+      //} // Asks User if they Would like to Use / Change Items
       ++i;
    }
    return;
@@ -173,15 +204,17 @@ void Game::saveGame() {
 }
 
 void Game::endScreen() {
-   clear();
+   wclear(instanceWin);
    int row = 0;
    int col = 0;
-   getmaxyx(stdscr, row, col);
+   getmaxyx(instanceWin, row, col);
    init_pair(9, COLOR_RED, COLOR_BLACK);
-   attron(COLOR_PAIR(9));
-   attron(A_BOLD);
-   box(stdscr, 0, 0);
-   mvprintw(row / 2, col / 2, "%s", "GAME OVER");
+   wattron(instanceWin, COLOR_PAIR(9));
+   wattron(instanceWin, A_BOLD);
+   box(instanceWin, 0, 0);
+   mvwprintw(instanceWin, row / 2, col / 2 - 5, "%s", "GAME OVER");
+   wrefresh(instanceWin);
+   wgetch(instanceWin);
 }
 
 bool Game::passingPrompt() {
@@ -222,7 +255,7 @@ bool Game::passingPrompt() {
       }
       else if (selection == 10) {
          if(highlight == 1) {
-            mainCharacter->accessInventory();
+            //mainCharacter->accessInventory();
             clear();
             return false;
          }

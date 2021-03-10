@@ -2,13 +2,13 @@
 #define EVENT_BUS_HPP
 
 #include <list>
-#include <pair>
+#include <utility>
 
 class Event;
 
 class EventBus {
 private:
-  std::list<Event*> events;
+  std::list<Event*> bus;
   std::list<std::pair<int, Event*>> triggers;
 
 public:
@@ -16,7 +16,7 @@ public:
   
   bool hasNext();
   Event* getNext();
-  void register(Event* event);
+  void registerEvent(Event* event);
   void registerImmediate(Event* event);
   void setTrigger(Event* event, int turns);
 };
