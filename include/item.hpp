@@ -13,7 +13,7 @@ private:
    int whoCanUse; // What class can use it?
 public:
    Item(std::string name, int effect, int type, int whoCanUse): name(name), effect(effect), type(type), whoCanUse(whoCanUse) {}
-   void printItem(int i) {
+   std::string printItem() {
       std::string output = name + "\t" + to_string(effect);
       if(type == 0) {
          output += "\tWeapon";
@@ -33,7 +33,7 @@ public:
       if(whoCanUse == 2) {
          output += "\tMage";
       }
-      mvprintw(2 + i, 2, output.c_str());
+      return output;
    }
    int getType() { return type; }
    void accept(User* character) {
