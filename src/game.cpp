@@ -14,6 +14,10 @@
 // SWORDSMAN == 1
 // MAGE == 2
 
+// Desert
+// Mountain
+// Cavern
+
 // 2021-02-13T03:00:53
 Game::Game() {
    time_t rawtime;
@@ -24,13 +28,18 @@ Game::Game() {
    strftime(timestamp, 20, "%Y-%m-%dT%h-%m-%S", timeinfo);
    saveName = std::string("Save-") + timestamp + ".txt";
    storyElements.push_back("The journey begins for our lone traveller, to get the Carvysian Talisman!");
-
+   storyElements.push_back("The desert sands rumbled with ancient proverbs from a forgotten time.");
+   storyElements.push_back("Creatures of many different forms roamed over this land.");
+   storyElements.push_back("The question arose, why have these creatures lusted for blood?");
+   storyElements.push_back("The mountainous regions proved no easier, as the foes became stronger.");
+   storyElements.push_back("Surviving became a struggle, as nature also fought against your pursuit.");
+   storyElements.push_back("Eventually, you reach a secluded forest to rest in the mountainous region.");
+   storyElements.push_back("Moving along, you reach the cavernous depths of the land, long forgotten.");
+   storyElements.push_back("The darkness consumes you, but you can feel the light at the end of the tunnel.");
+   storyElements.push_back("\"One last time.\", you say to yourself, feeling the Talisman bode forth.");
 }
 Game::~Game() {
    delete mainCharacter;
-   while(events.hasNext()) {
-      events.deleteEvents();
-   }
 }
 
 void Game::build() {
@@ -162,7 +171,7 @@ void Game::build() {
 }
 
 void Game::runGame() {
-   std::string dialogue = "Press any key to continue.";
+   std::string dialogue = "[ Press any key to continue. ]";
    int gameOver = 0;
    int i = 0;
    int row = 0;
@@ -171,8 +180,8 @@ void Game::runGame() {
    while(events.hasNext()) {
       clear();
       attron(COLOR_PAIR(1));
-      mvprintw(0, 0, storyElements[i].c_str());
-      mvprintw(2, 0, dialogue.c_str());
+      mvprintw(0, (col - storyElements[i].size()) / 2, storyElements[i].c_str());
+      mvprintw(2, (col - dialogue.size()) / 2, dialogue.c_str());
       refresh();
       getch(); // Wait for User Input before continuing
       attroff(COLOR_PAIR(1));
@@ -195,12 +204,13 @@ void Game::runGame() {
          return;
       }
 
-      saveGame(); // Automatically Saves Game
+      //saveGame(); // Automatically Saves Game
       // if(passingPrompt()) { // Returns True if User Wants to Quit
       //   return;
       // } // Asks User if they Would like to Use / Change Items
       ++i;
    }
+   finishGame();
    return;
 }
 
@@ -278,4 +288,34 @@ bool Game::passingPrompt() {
       }
    }
    return true;
+}
+
+void Game::finishGame() {
+   int row = 0;
+   int col = 0;
+   getmaxyx(stdscr, row, col);
+   clear();
+   std::string finale = "Press to take the Carvysian Talisman.";
+   mvprintw(row / 2, (col - storyElements[storyElements.size() - 1].size()) / 2, storyElements[storyElements.size() - 1].c_str());
+   init_pair(16, COLOR_CYAN, COLOR_BLACK);
+   attron(COLOR_PAIR(16));
+   mvprintw((row / 2) + 1, (col - finale.size()) / 2, finale.c_str());
+   refresh();
+   getch();
+   clear();
+   init_pair(17, COLOR_YELLOW, COLOR_BLACK);
+   attron(COLOR_PAIR(17));
+   attron(A_BOLD);
+   box(stdscr, 0, 0);
+   std::string congrats = "Congratulations! You won!!";
+   std::vector<std::string> credits = {"Game made by:", "Charles Alaras", "Roth Vann", "Yazhou Shen"};
+   std::string thanks = "Thank you for playing!";
+   mvprintw(row / 2, (col - congrats.size()) / 2, congrats.c_str());
+   for(int i = 0; i < credits.size(); i++) {
+      mvprintw((row / 2) + (i + 1), (col - credits[i].size()) / 2, credits[i].c_str());
+   }
+   mvprintw((row / 2) + 6, (col - thanks.size()) / 2, thanks.c_str());
+   refresh();
+   getch();
+   return;
 }

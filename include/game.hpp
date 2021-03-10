@@ -30,6 +30,7 @@ public:
    void runGame();
    void saveGame();
    bool passingPrompt();
+   void finishGame();
 };
 
 #endif //__GAME_HPP__
