@@ -32,7 +32,6 @@ User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1), cla
    inventory.push_back(new Item("Traveller's Clothes", 2, 1, -1));
    inventory.push_back(new Item("Heal Potion", 10, 2, -1));
    inventory.push_back(new Item("Big Heal Potion", 25, 2, -1));
-   ui = UserInterface(skills, inventory, classtype);
 }
 User::~User() {
    for(int i = 0; i < skills.size(); i++) {
