@@ -1,4 +1,7 @@
-#include "user.hpp"
+#include "character/user.hpp"
+#include <algorithm>
+#include <vector>
+
 // Skill Format: Name, Damage, User
 // Item Format: Name, Effect, ItemType, User
 User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1), classtype(classtype) {
@@ -33,6 +36,7 @@ User::User(std::string name, int classtype): Damageable(name, 10, 50, 0, 1), cla
    inventory.push_back(new Item("Heal Potion", 10, 2, -1));
    inventory.push_back(new Item("Big Heal Potion", 25, 2, -1));
 }
+
 User::~User() {
    for(int i = 0; i < skills.size(); i++) {
       delete skills.at(i);
@@ -41,8 +45,19 @@ User::~User() {
       delete inventory.at(i);
    }
 }
-std::string User::getAttack(int index) { return skills.at(i)->name; }
-int User::getItemType(int index) { return item.at(i)->getType() }
+
+std::string User::getAttack(int index) { return skills.at(index)->getName(); }
+
+int User::getItemType(int index) { return inventory.at(index)->getType(); }
+
+std::vector<Skill*> User::getSkills() {
+  return skills;
+}
+
+std::vector<Item*> User::getItems() {
+  return inventory;
+}
+
 void User::useItem(int index) {
    // VISITOR PATTERN
    /*
@@ -53,16 +68,18 @@ void User::useItem(int index) {
    */
    inventory.at(index)->accept(this);
 }
-void setArmor(Item* armor) {
-   std::vector<int>::iterator vit = inventory.find(armor);
-   currentArmor = vit - inventory.begin();
+void User::setArmor(Item* item) {
+  auto vit = std::find(inventory.begin(), inventory.end(), item);
+  currentArmor = vit - inventory.begin();
 }
-void setWeapon(Item* weapon) {
-   std::vector<int>::iterator vit = inventory.find(armor);
-   currentWeapon = vit - inventory.begin();
+
+void User::setWeapon(Item* item) {
+  auto vit = std::find(inventory.begin(), inventory.end(), item);
+  currentWeapon = vit - inventory.begin();
 }
-void removeItem(Item* consumable) {
-   std::vector<int>::iterator vit = inventory.find(consumable);
-   delete inventory.at(vit - inventory.begin());
-   inventory.erase(v);
+
+void User::removeItem(Item* item) {
+  auto vit = std::find(inventory.begin(), inventory.end(), item);
+  delete *vit;
+  inventory.erase(vit);
 }
