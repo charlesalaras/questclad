@@ -10,7 +10,6 @@ private:
     int currentWeapon;
     vector<Skill*> skills;
     vector<Item*> inventory;
-    UserInterface ui;
     int classtype;
 public:
     User(std::string name, int classtype);
@@ -22,5 +21,4 @@ public:
     void setArmor(Item* armor);
     void setWeapon(Item* weapon);
     void removeItem(Item* consumable);
-    std::pair<int, int> getChoice() { return ui->drawInt() };
 }
