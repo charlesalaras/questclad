@@ -16,7 +16,7 @@ private:
   int selection = 0;
 
 public:
-  Menu(WINDOW* win, std::vector<std::string> options, int startX, int startY) : win(win), options(options),
+  Menu(WINDOW* win, std::vector<std::string> options, int startY, int startX) : win(win), options(options),
   startX(startX), startY(startY) {
   
   };
@@ -31,7 +31,7 @@ public:
         wattron(this->win, A_REVERSE);
       }
 
-      mvwprintw(this->win, startX + i + 1, startY + 1, options[i].c_str());
+      mvwprintw(this->win, startY + i, startX, options[i].c_str());
 
       if(selection == i) {
         wattroff(this->win, A_REVERSE);

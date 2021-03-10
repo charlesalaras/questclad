@@ -46,9 +46,21 @@ User::~User() {
    }
 }
 
-std::string User::getAttack(int index) { return skills.at(index)->getName(); }
+std::string User::getAttack(int index) { 
+  return skills[index]->getName(); 
+}
 
-int User::getItemType(int index) { return inventory.at(index)->getType(); }
+int User::getItemType(int index) { 
+  return inventory[index]->getType(); 
+}
+
+Skill* User::getSkill(int i) {
+  return skills[i];
+}
+
+Item* User::getItem(int i) {
+  return inventory[i];
+}
 
 std::vector<Skill*> User::getSkills() {
   return skills;

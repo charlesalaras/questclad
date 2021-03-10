@@ -5,21 +5,21 @@ class EventBus;
 
 class Event {
 private:
-  EventBus* eventBus;
-  bool isActive = true;
+  bool active = true;
 
 protected:
-  bool finish();
+  void finish() {
+    active = false;
+  }
 
 public:
-  Event(EventBus* eventBus);
   
-  void run();
-  
-  bool isActive();
+  bool isActive() {
+    return active;
+  }
 
   virtual void draw() = 0;
-  virtual void select(char option) = 0;
+  virtual void select(int option) = 0;
 
 };
 
