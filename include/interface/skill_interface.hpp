@@ -16,7 +16,7 @@ public:
     for(auto skill : skills) {
       options.push_back(skill->getName());
     }
-    menu = new Menu(win, options, 10, 10);
+    menu = new Menu(win, options, 4, 2);
   }
 
   ~SkillInterface() {

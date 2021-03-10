@@ -29,18 +29,20 @@ void drawStats() {
   enemyStats = std::to_string(enemy->getCurrentHealth()) + " / " + std::to_string(enemy->getHealth());
   mvwprintw(win, 1, 2, userName.c_str());
   mvwprintw(win, 2, 2, userStats.c_str());
-  mvwprintw(win, 1, 80, enemyName.c_str());
-  mvwprintw(win, 2, 80, enemyStats.c_str());
+  mvwprintw(win, 1, 40, enemyName.c_str());
+  mvwprintw(win, 2, 40, enemyStats.c_str());
 }
 
 public:
   BattleInterface(WINDOW* win, Interface* skillInter, Interface* itemInter, User* user, Enemy* enemy) : win(win), skillInter(skillInter), itemInter(itemInter), user(user), 
   enemy(enemy), userName(user->getName()), enemyName(enemy->getName()) {
-    menu = new Menu(win, {"Attack", "Items", "Run"}, 10, 10);
+    menu = new Menu(win, {"Attack", "Items", "Run"}, 4, 2);
   }
 
   ~BattleInterface() {
     delete menu;
+    delete skillInter;
+    delete itemInter;
   }
 
   virtual void draw() {
@@ -79,8 +81,10 @@ public:
         }
         break;
       }
-      case 3:
-        return 3;
+    }
+    if(selection == 3) {
+      selection = 0;
+      return 3;
     }
     return 0;
   }

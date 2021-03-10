@@ -24,6 +24,8 @@ public:
     ~User();
     std::string getAttack(int index);
     int getItemType(int index);
+    Skill* getSkill(int i);
+    Item* getItem(int i);
     std::vector<Skill*> getSkills();
     std::vector<Item*> getItems();
     void useItem(int index);

@@ -1,8 +1,5 @@
 #include "character/user.hpp"
-#include "interface/battle_interface.hpp"
-#include "interface/item_interface.hpp"
-#include "interface/skill_interface.hpp"
-#include "character/item.hpp"
+#include "event/battle_event.hpp"
 #include <ncurses.h>
 #include <iostream>
 
@@ -22,20 +19,15 @@ int main() {
   keypad(win, true);
 
   User user("name", 1); 
+  Enemy* enemy = new Enemy("Goblin", 10, 100, 10, 10, "afsd");
 
-  Enemy enemy("Goblin", 10, 100, 10, 10, "afsd");
+  BattleEvent event(win, &user, enemy);
 
-  SkillInterface skillInter(win, &user);
-  ItemInterface itemInter(win, &user);
-
-
-  BattleInterface interface(win, &skillInter, &itemInter, &user, &enemy); 
-
-  while(true) {
-    wclear(win);
-    interface.draw();
+  while(event.isActive()) {
+    event.draw();
     int c = wgetch(win);
-    int res = interface.update(c);
+    event.select(c);
+    wclear(win);
   }
   
   delwin(win);
