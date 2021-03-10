@@ -28,10 +28,13 @@ int main() {
     user.addItem(new Item("item " + std::to_string(i)));
   }
 
+  Enemy enemy("Goblin", 10, 100, 10, 10, "afsd");
+
   SkillInterface skillInter(win, &user);
   ItemInterface itemInter(win, &user);
 
-  BattleInterface interface(win, &skillInter, &itemInter); 
+
+  BattleInterface interface(win, &skillInter, &itemInter, &user, &enemy); 
 
   while(true) {
     wclear(win);

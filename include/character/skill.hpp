@@ -6,11 +6,12 @@
 
 class Skill {
 private:
-   std::string name;
-   int classType;
+  std::string name;
+  int damage;
+  int classType;
 
 public:
-  Skill(std::string name, int classType) : name(name), classType(classType) { }
+  Skill(std::string name, int damage, int classType) : name(name), damage(damage), classType(classType) { }
    
   std::string getName() {
     return this->name;
