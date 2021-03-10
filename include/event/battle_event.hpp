@@ -43,6 +43,8 @@ public:
       } else {
         user->useItem(selected);
       }
+
+      enemy->simpleAttack(user);
     }
 
     if(!user->isAlive() || !enemy->isAlive()) {

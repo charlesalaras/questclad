@@ -81,9 +81,10 @@ public:
         }
         break;
       }
-      case 3:
-        selection = 0;
-        return 3;
+    }
+    if(selection == 3) {
+      selection = 0;
+      return 3;
     }
     return 0;
   }
