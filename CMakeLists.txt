@@ -5,19 +5,27 @@ SET(CMAKE_CXX_STANDARD 11)
 ADD_SUBDIRECTORY(googletest)
 
 INCLUDE_DIRECTORIES(include)
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ncurses/include)
-LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/ncurses/lib)
 
 SET(SRC
   src/character/enemy.cpp
   src/character/damageable.cpp
+  src/character/user.cpp
+  src/character/skill.cpp
+  src/character/item.cpp
 )
 
-ADD_EXECUTABLE(test tests/test.cpp 
+ADD_EXECUTABLE(test tests/test.cpp
   ${SRC}
-  src/test-main.cpp
-  )
+  test-main.cpp
+)
+
+ADD_EXECUTABLE(main main.cpp
+  ${SRC}
+)
 
 TARGET_LINK_LIBRARIES(test gtest)
 TARGET_LINK_LIBRARIES(test ncurses)
+
+TARGET_LINK_LIBRARIES(main ncurses)
+TARGET_LINK_LIBRARIES(main menu)
 TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
