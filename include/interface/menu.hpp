@@ -15,6 +15,10 @@ private:
   int startY;
   int selection = 0;
 
+  void limitSelection() {
+    selection = std::min((int)options.size() - 1, std::max(selection, 0));
+  }
+
 public:
   Menu(WINDOW* win, std::vector<std::string> options, int startY, int startX) : win(win), options(options),
   startX(startX), startY(startY) {
@@ -52,8 +56,13 @@ public:
       case 10:
         return selection + 1;
     }
-    selection = std::min((int)this->options.size() - 1, std::max(0, selection));
+    limitSelection();
     return 0; 
+  }
+
+  void updateOptions(std::vector<std::string> options) {
+    this->options = options;
+    limitSelection();
   }
 };
 

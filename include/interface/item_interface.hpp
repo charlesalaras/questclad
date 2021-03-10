@@ -8,16 +8,21 @@
 class ItemInterface : public Interface {
 private:
   Menu* menu;
+  User* user;
 
-public:
-  ItemInterface(WINDOW* win, User* user) {   
+  void updateOptions() {   
     std::vector<std::string> options;
     auto items = user->getItems();
     for(auto item : items) {
       options.push_back(item->getName());
     }
 
-    menu = new Menu(win, options, 4, 2);
+    menu->updateOptions(options);
+  }
+
+public:
+  ItemInterface(WINDOW* win, User* user) : user(user) {
+    menu = new Menu(win, {}, 4, 2);
   }
 
   ~ItemInterface() {
@@ -25,6 +30,7 @@ public:
   }
 
   virtual void draw() {
+    updateOptions();
     menu->draw();
   }
 

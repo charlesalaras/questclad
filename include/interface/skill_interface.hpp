@@ -7,16 +7,20 @@
 class SkillInterface : public Interface {
 private:
   Menu* menu;
-
-public:
-
-  SkillInterface(WINDOW* win, User* user) {
+  User* user;
+  
+  void updateOptions() {
     std::vector<std::string> options;
     auto skills = user->getSkills();
     for(auto skill : skills) {
       options.push_back(skill->getName());
     }
-    menu = new Menu(win, options, 4, 2);
+    menu->updateOptions(options);
+  }
+
+public:
+  SkillInterface(WINDOW* win, User* user) : user(user) {
+    menu = new Menu(win, {}, 4, 2);
   }
 
   ~SkillInterface() {
@@ -24,6 +28,7 @@ public:
   }
 
   virtual void draw() {
+    updateOptions();
     menu->draw();
   }
 

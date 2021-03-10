@@ -1,9 +1,10 @@
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
-#include "event_bus.hpp"
-#include "event.hpp"
-#include "character.hpp"
+#include "event/event_bus.hpp"
+#include "event/event.hpp"
+#include "character/user.hpp"
+
 #include <ncurses.h>
 #include <fstream>
 #include <vector>
@@ -20,9 +21,11 @@ private:
    bool loadGame(); // Helper to Parametrized Constructor
    std::string getName();
    void endScreen();
+   WINDOW* instanceWin;
 public:
    Game();
    Game(std::string fname); // Calls loadGame
+   ~Game();
    void build();
    void runGame();
    void saveGame();

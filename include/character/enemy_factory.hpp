@@ -5,7 +5,7 @@
 
 class EnemyFactory {
 public:
-  virtual Enemy getEnemy(int level) = 0;
+  virtual Enemy* getEnemy(int level) = 0;
 
 };
 

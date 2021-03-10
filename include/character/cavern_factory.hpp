@@ -10,14 +10,14 @@
 class CavernFactory: public EnemyFactory {
 private:
    std::vector<std::string> names = {"Ogre", "Goblin"};
-   std::vector<std::string> sounds = {"graa", "mgwaga"};
+
 public:
    CavernFactory() { }
 
-   virtual Enemy getEnemy(int level) {
-      double scale = 1 + level / 10;
-      Enemy newEnemy(this->names[0], 10* scale, 20 * scale, 5 * scale, 5 * scale, this->sounds[0]);
-      return newEnemy;
+   virtual Enemy* getEnemy(int level) {
+      int i = level % names.size();
+      double scale = 1 + (level / 5.0);
+      return new Enemy(this->names[i], 10 * scale, 20 * scale, 5 * scale, 10 * scale);
    }
 };
 

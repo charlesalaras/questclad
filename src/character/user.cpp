@@ -80,6 +80,7 @@ void User::useItem(int index) {
    */
    inventory.at(index)->accept(this);
 }
+
 void User::setArmor(Item* item) {
   auto vit = std::find(inventory.begin(), inventory.end(), item);
   currentArmor = vit - inventory.begin();
