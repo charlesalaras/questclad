@@ -23,9 +23,14 @@ Game::Game() {
    char timestamp[20];
    strftime(timestamp, 20, "%Y-%m-%dT%h-%m-%S", timeinfo);
    saveName = std::string("Save-") + timestamp + ".txt";
+   storyElements.push_back("The journey begins for our lone traveller, to get the Carvysian Talisman!");
+
 }
 Game::~Game() {
    delete mainCharacter;
+   while(events.hasNext()) {
+      events.deleteEvents();
+   }
 }
 
 void Game::build() {
@@ -145,13 +150,13 @@ void Game::build() {
    DesertFactory desertFac;
    MountainFactory mountFac;
    CavernFactory cavFac;
-   for(int i = 0; i < 5; ++i) {
+   for(int i = 0; i < 3; ++i) {
       events.registerEvent(new BattleEvent(instanceWin, mainCharacter, desertFac.getEnemy(i)));
    }
-   for(int i = 0; i < 5; ++i) {
+   for(int i = 0; i < 3; ++i) {
       events.registerEvent(new BattleEvent(instanceWin, mainCharacter, mountFac.getEnemy(i + 5)));
    }
-   for(int i = 0; i < 5; ++i) {
+   for(int i = 0; i < 3; ++i) {
       events.registerEvent(new BattleEvent(instanceWin, mainCharacter, cavFac.getEnemy(i + 15)));
    }
 }
@@ -164,13 +169,15 @@ void Game::runGame() {
    int col = 0;
    getmaxyx(stdscr,row,col);
    while(events.hasNext()) {
-      //clear();
-      //int k = getch();
-      //mvprintw(row / 2, (col - (storyElements[i].size()) / 2), storyElements[i].c_str());
-      //mvprintw((row / 2) + 2, (col - dialogue.size()) / 2, dialogue.c_str());
-      //refresh();
-      //getch(); // Wait for User Input before continuing
-      //clear();
+      clear();
+      attron(COLOR_PAIR(1));
+      mvprintw(0, 0, storyElements[i].c_str());
+      mvprintw(2, 0, dialogue.c_str());
+      refresh();
+      getch(); // Wait for User Input before continuing
+      attroff(COLOR_PAIR(1));
+      clear();
+      refresh();
       Event* curr = events.getNext();
         
       while(curr->isActive()) {
@@ -188,10 +195,10 @@ void Game::runGame() {
          return;
       }
 
-      //saveGame(); // Automatically Saves Game
-      //if(passingPrompt()) { // Returns True if User Wants to Quit
-        // return;
-      //} // Asks User if they Would like to Use / Change Items
+      saveGame(); // Automatically Saves Game
+      // if(passingPrompt()) { // Returns True if User Wants to Quit
+      //   return;
+      // } // Asks User if they Would like to Use / Change Items
       ++i;
    }
    return;
