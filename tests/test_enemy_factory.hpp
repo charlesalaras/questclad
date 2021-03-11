@@ -42,7 +42,7 @@ TEST(MountainFactory, EnemyNameChangesPerLevel) {
 TEST(MountainFactory, ScalesWithLevel) {
   MountainFactory factory;
   Enemy* enemy1 = factory.getEnemy(0);
-  Enemy* enemy2 = factory.getEnemy(1);
+  Enemy* enemy2 = factory.getEnemy(10);
 
   EXPECT_LT(enemy1->getHealth(), enemy2->getHealth());
   EXPECT_LT(enemy1->getStrength(), enemy2->getStrength());
@@ -91,7 +91,7 @@ TEST(DesertFactory, EnemyNameChangesPerLevel) {
 TEST(DesertFactory, ScalesWithLevel) {
   DesertFactory factory;
   Enemy* enemy1 = factory.getEnemy(0);
-  Enemy* enemy2 = factory.getEnemy(1);
+  Enemy* enemy2 = factory.getEnemy(10);
 
   EXPECT_LT(enemy1->getHealth(), enemy2->getHealth());
   EXPECT_LT(enemy1->getStrength(), enemy2->getStrength());
@@ -141,7 +141,7 @@ TEST(CavernFactory, EnemyNameChangesPerLevel) {
 TEST(CavernFactory, ScalesWithLevel) {
   CavernFactory factory;
   Enemy* enemy1 = factory.getEnemy(0);
-  Enemy* enemy2 = factory.getEnemy(1);
+  Enemy* enemy2 = factory.getEnemy(10);
 
   EXPECT_LT(enemy1->getHealth(), enemy2->getHealth());
   EXPECT_LT(enemy1->getStrength(), enemy2->getStrength());

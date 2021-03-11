@@ -32,7 +32,7 @@ TEST(Enemy, MinDamageIsOne) {
 
 TEST(Enemy, StrengthIncreasesDamage) {
   Enemy enemy1("Enemy", 0, 100, 0, 0);
-  Enemy enemy2("Enemy", 0, 100, 0, 10);
+  Enemy enemy2("Enemy", 0, 100, 0, 20);
   Enemy target1("Enemy", 0, 100, 0, 0);
   Enemy target2("Enemy", 0, 100, 0, 0);
 

@@ -42,6 +42,6 @@ void Damageable::addHealthBonus(int bonus) {
 
 int Damageable::attack(Damageable* target, int damage) {
   double scale = this->strengthBonus + this->strength;
-  scale /= 20;
+  scale /= 20.0;
   return target->takeDamage((1 + scale) * damage);
 }
