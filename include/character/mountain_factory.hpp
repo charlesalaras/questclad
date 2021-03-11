@@ -17,7 +17,7 @@ public:
 
   virtual Enemy* getEnemy(int level) {
     int i = level % names.size();
-    double scale = 1 + (level / 20.0);
+    double scale = 1 + (level / 10.0);
     return new Enemy(this->names[i], 10 * scale, 20 * scale, 5 * scale, 5 * scale);
   }
 

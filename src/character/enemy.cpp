@@ -2,6 +2,6 @@
 #include <string>
 
 int Enemy::simpleAttack(Damageable* target) {
-  return this->attack(target, 1);
+  return this->attack(target, 2);
 }
 
