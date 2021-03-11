@@ -32,15 +32,20 @@ The two design patterns that will be used in our project is the visitor pattern 
     * We are planning on having a large variety of enemy types which can include variants of various types. Since the number of enemies and variants could be very large, the number of classes we would have to create would be very messy. To fix this we plan on having an abstract factory that allows us to get a enemy type factory that would generate enemy variants. Abstract Factory can also see usefulness in handling various events and the orchestration of each functional part of the events.
 
 ## Class Diagram
+### Character Hierarchy
+This diagram illustrates the hierarchy of the Character class, which includes the Damageable objects of the game: the User and the Enemy. Notice that User has a useItem function, which is used in the Visitor pattern for its interaction with an item. It also includes functions that take an item and apply a bonus based on what item it is, also illustrating the Visitor pattern.
+
+![Composite Pattern for Interface](img/Diagram1.PNG)
+
+### Event, Factories, Game, and Objects
+The enemy class is implemented with the Abstract Factory pattern. Also included in this diagram are other classes necessary for the game including Event, Game, Items, and Skills. Also of note is Item's accept function, which takes a User* as its visitor.
+
+![Abstract Factory Pattern for Enemy](img/Diagram2.PNG)
+
 ### Interface
-The interface class is implemented with the composite pattern. Also included in this diagram are item and skill classes (not related to Interface, but are used in Interface).
+This diagram shows the interfaces that are drawn for usage in the game. It depends on both Items, Skills, Users, and Enemies, making it a very delicate class structure, as it also draws all graphics for the screen.
 
-![Composite Pattern for Interface](img/InterfaceOMTFinal.png)
-
-### Enemy
-The enemy class is implemented with the Abstract Factory pattern. Also included in this diagram are other classes necessary for the game including Event, Game, Damagables, and Character.
-
-![Abstract Factory Pattern for Enemy](img/PhaseII.png)
+![Interface Classes](img/Diagram3.PNG)
 
  ## Screenshots
 ![Main Menu](img/Screenshot1.PNG)
