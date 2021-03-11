@@ -13,7 +13,7 @@ protected:
   }
 
 public:
-  
+  virtual ~Event() {}
   bool isActive() {
     return active;
   }

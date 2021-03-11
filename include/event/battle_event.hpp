@@ -23,6 +23,7 @@ public:
 
   ~BattleEvent() {
     delete battleInterface;
+    delete enemy;
   }
 
   virtual void draw() {

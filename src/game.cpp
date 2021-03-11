@@ -40,6 +40,7 @@ Game::Game() {
 }
 Game::~Game() {
    delete mainCharacter;
+   delwin(instanceWin);
 }
 
 void Game::build() {
@@ -301,7 +302,7 @@ void Game::finishGame() {
    attron(COLOR_PAIR(16));
    mvprintw((row / 2) + 1, (col - finale.size()) / 2, finale.c_str());
    refresh();
-   getch();
+   wgetch(instanceWin);
    clear();
    init_pair(17, COLOR_YELLOW, COLOR_BLACK);
    attron(COLOR_PAIR(17));
