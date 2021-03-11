@@ -4,7 +4,7 @@
 #include <list>
 #include <utility>
 
-class Event;
+#include "event/event.hpp"
 
 class EventBus {
 private:
@@ -13,7 +13,7 @@ private:
 
 public:
   EventBus();
-  
+  ~EventBus();
   bool hasNext();
   Event* getNext();
   void registerEvent(Event* event);

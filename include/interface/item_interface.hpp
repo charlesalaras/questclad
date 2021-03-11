@@ -14,7 +14,7 @@ private:
     std::vector<std::string> options;
     auto items = user->getItems();
     for(auto item : items) {
-      options.push_back(item->getName());
+      options.push_back(item->printItem());
     }
 
     menu->updateOptions(options);

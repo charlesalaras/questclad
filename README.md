@@ -41,29 +41,45 @@ The interface class is implemented with the composite pattern. Also included in 
 The enemy class is implemented with the Abstract Factory pattern. Also included in this diagram are other classes necessary for the game including Event, Game, Damagables, and Character.
 
 ![Abstract Factory Pattern for Enemy](img/PhaseII.png)
- 
- > ## Phase III
- > You will need to schedule a check-in with the TA (during lab hours or office hours). Your entire team must be present. 
- > * Before the meeting you should perform a sprint plan like you did in Phase II
- > * In the meeting with your TA you will discuss: 
- >   - How effective your last sprint was (each member should talk about what they did)
- >   - Any tasks that did not get completed last sprint, and how you took them into consideration for this sprint
- >   - Any bugs you've identified and created issues for during the sprint. Do you plan on fixing them in the next sprint or are they lower priority?
- >   - What tasks you are planning for this next sprint.
 
- > ## Final deliverable
- > All group members will give a demo to the TA during lab time. The TA will check the demo and the project GitHub repository and ask a few questions to all the team members. 
- > Before the demo, you should do the following:
- > * Complete the sections below (i.e. Screenshots, Installation/Usage, Testing)
- > * Plan one more sprint (that you will not necessarily complete before the end of the quarter). Your In-progress and In-testing columns should be empty (you are not doing more work currently) but your TODO column should have a full sprint plan in it as you have done before. This should include any known bugs (there should be some) or new features you would like to add. These should appear as issues/cards on your Kanban board. 
- 
  ## Screenshots
- > Screenshots of the input/output after running your application
+![Main Menu](img/Screenshot1.PNG)
+![Creating Your Character](img/Screenshot2.PNG)
+![Choosing Your Class](img/Screenshot3.PNG)
+![Dialogue Moment](img/Screenshot4.PNG)
+![Main Interface](img/Screenshot5.PNG)
+![Accessing Inventory](img/Screenshot6.PNG)
+![In Battle](img/Screenshot7.PNG)
  ## Installation/Usage
- > Instructions on installing and running your application
  ### Important Warning About Memory
  **PLEASE READ**  
  The library used for this project (ncurses) to provided text based graphics will leak memory. This is not memory that is leaked by the user, but memory that is leaked by ncurses. This is intended. We have done all we can to try and remove whatever memory leaks the program may create, but some memory may still leak (when run in Valgrind, it will show up in the "Still Reachable" section). For more information, please see [this FAQ in ncurses' documentation](https://invisible-island.net/ncurses/ncurses.faq.html#config_leaks).
+ ### Getting Started
+ - Assure that you are running the program at a feasible terminal size (most playtests were done at a size of about 33x135 characters).
+ - You can easily change your buffer size by looking [here](https://www.google.com/?q=increase+terminal+buffer+size).
+ - Depending on different terminals, some things can go wrong: for example, in program terminals for IDEs, SSH'd terminals, and old terminals will most likely not be supported. This is because ncurses uses a color module that some terminals do not support. See the next bullet point for workarounds.
+ - The program only runs on Linux terminals as of first tested release. It is free to download [here](https://www.linux.org/). There are many distributions to choose from, we recommend Ubuntu as it is what was used for running. If you are a Windows user, you can use **Windows Subsystem Linux**, a Linux terminal emulator for Windows. Find it [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+ ### Running the Game
+ Running the game is very simple. Here are the common ways:
+ #### .ZIP
+ 1. On Github, navigate to this repository, and find a green button labelled "Code", and it will open a drop-down menu.
+ 2. Click "Download ZIP", and it should download all contents of the repository.
+ 3. Once downloaded, navigate to the zip and extract it.
+ 4. Open up terminal.
+ 5. Using [shell commands](https://www.geeksforgeeks.org/basic-shell-commands-in-linux/), navigate to your extracted zip.
+ 6. Type in the command `./main` and the game should start automatically.
+ #### Git Clone
+ 1. On Github, navigate to this repository, and find a green button labelled "Code", and it will open a drop-down menu.
+ 2. Copy the HTTPS link that shows up under the "Clone" section.
+ 3. Open up terminal.
+ 4. Using [shell commands](https://www.geeksforgeeks.org/basic-shell-commands-in-linux/), navigate to where you would like to place the game.
+ 5. Type in `git clone <https-link>`, and it will clone this repository into your desired folder.
+ 6. Type in the command `./main` and the game should start automatically.
  ## Testing
- > How was your project tested/validated? If you used CI, you should have a "build passing" badge in this README.
- 
+ Testing a game is an incredibly difficult task, as many parts cannot be tested without their underlying dependencies. Nonetheless, we pushed forward.
+ ### Unit Testing
+ Unit testing was done by isolating as many classes that we could, and testing their specific functions. Often in testing we would have to "mock" what the game would do to stimulate these objects, and see how the specific classes would react, observing if the behavior works how we intend it to. Often times, some classes could not be tested fully, because they did not have anything to test (apart from values that we knew could never happen, because values are either set in a small user range, or set by us). However, any functions that we could test we did.
+ ### GUI Testing
+ There was not much that could be done with GUI testing, since ncurses is already assumed to be tested. The only pitfall would come from us not using the ncurses library correctly, or forgetting something. Thus, there were not many logical errors that could occur, rather mistakes on the programmer's part that we made sure to account for.
+ ### Product Testing
+ Once we integrated all parts of the game together, we were able to move into a stage known as playtesting. Since much of the game is GUI based, we ran through whatever possible combinations of inputs a user could choose and tested whether that would break things. The testing we did is essentially making sure that our game is bulletproof, and that a user cannot access things they are not supposed to, only acting in constraints to the input line we give (interfaces). We tested a various amount of nonsense inputs, tried breaking things in the background and changing different parameters. While its impossible to account for everything, we did our best to isolate and test every variable we possibly could.

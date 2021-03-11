@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
     initscr(); // Initialize Screen
     curs_set(0); // Hide Cursor
     start_color(); // Start Colors (Maybe Add a Check Before Later On?)
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
     init_pair(2, COLOR_BLACK, COLOR_CYAN); // Initialize Black Text on Cyan
     init_pair(3, COLOR_WHITE, COLOR_BLACK); // Initialize White Text on Black
     getmaxyx(stdscr, row, col); // Get Maximum Space of Window
@@ -49,6 +50,7 @@ int main(int argc, char** argv) {
                 break;
             case 2:
                 std::cout << "Credits rolling...\n";
+                rollCredits(row, col);
                 break;
             case 3:
                 std::cout << "Quitting game... See you next time!\n";
@@ -67,6 +69,7 @@ int main(int argc, char** argv) {
             }
             case 1:
                 std::cout << "Credits rolling...";
+                rollCredits(row, col);
                 break;
             case 2:
                 std::cout << "Quitting game... See you next time!";
@@ -80,10 +83,10 @@ int main(int argc, char** argv) {
 }
 
 void printTitle(int row, int col) {
-    init_pair(1, COLOR_RED, COLOR_CYAN);
+    init_pair(6, COLOR_RED, COLOR_CYAN);
     init_pair(4, COLOR_WHITE, COLOR_BLUE);
     init_pair(5, COLOR_WHITE, COLOR_WHITE);
-    wbkgd(stdscr, COLOR_PAIR(1));
+    wbkgd(stdscr, COLOR_PAIR(6));
     std::string line0 = "============================================================================================";
     std::string line1 = "   .oooooo.                                         .             oooo                  .o8 ";
     std::string line2 = "  d8P'  `Y8b                                      .o8             `888                 `888 ";
@@ -194,4 +197,35 @@ int printMenu(int row, int col, int argc) {
     }
     wclear(choicewin);
     return returnOption;
+}
+
+void rollCredits(int row, int col) {
+    clear();
+    wbkgd(stdscr, COLOR_PAIR(1));
+    init_pair(20, COLOR_RED, COLOR_BLACK);
+    init_pair(21, COLOR_CYAN, COLOR_BLACK);
+    std::vector<std::string*> vtitle;
+    vtitle.push_back(new std::string("   .oooooo.                                         .             oooo                  .o8 "));
+    vtitle.push_back(new std::string("  d8P'  `Y8b                                      .o8             `888                 `888 "));
+    vtitle.push_back(new std::string(" 888      888    oooo  oooo   .ooooo.   .oooo.o .o888oo  .ooooo.   888   .oooo.    .oooo888 "));
+    vtitle.push_back(new std::string(" 888      888    `888  `888  d88' `88b d88(  `8   888   d88' ''Y8  888  `P  )88b  d88' `888 "));
+    vtitle.push_back(new std::string(" 888      888     888   888  888ooo888 ''Y88b.    888   888        888   .oP'888  888   888 "));
+    vtitle.push_back(new std::string(" `88b    d88b     888   888  888    .o o.  )88b   888 . 888   .o8  888  d8(  888  888   888 "));
+    vtitle.push_back(new std::string("  `Y8bood8P'Ybd'  `V88V`V8P' `Y8bod8P' 8''888P'   `888` `Y8bod8P' o888o `Y888``8o `Y8bod88P`"));
+    attron(COLOR_PAIR(20));
+    attron(A_BOLD);
+    for(int i = 0; i < vtitle.size(); i++) {
+        mvprintw(i + 2, (col - vtitle[i]->size()) / 2, vtitle[i]->c_str());
+    }
+    for(int i = 0; i < vtitle.size(); i++) {
+        delete vtitle[i];
+    }
+    attroff(COLOR_PAIR(20));
+    std::vector<std::string> credits = {"Game Created For CS100 By", "Charles Alaras", "Roth Vann", "Yazhou Shen"};
+    attron(COLOR_PAIR(21));
+    for(int i = 0; i < credits.size(); i++) {
+        mvprintw((row / 2) + i, (col - credits[i].size()) / 2, credits[i].c_str());
+    }
+    refresh();
+    getch();
 }

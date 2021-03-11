@@ -5,6 +5,7 @@
 
 class Interface {
 public:
+  virtual ~Interface() {}
   virtual void draw() = 0;
   virtual int update(int c) = 0;
 };

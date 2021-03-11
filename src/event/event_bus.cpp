@@ -2,6 +2,12 @@
 
 EventBus::EventBus() { }
 
+EventBus::~EventBus() {
+   while(hasNext()) {
+      delete getNext();
+   }
+}
+
 bool EventBus::hasNext() {
   return !this->bus.empty();
 }

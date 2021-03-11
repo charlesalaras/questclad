@@ -17,6 +17,8 @@ public:
 
   std::string getName();
 
+  std::string printItem();
+
   int getCompatibility();
 
   int getType();
