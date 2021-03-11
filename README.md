@@ -24,10 +24,10 @@
 The input and output of this project will be based upon important interactions with user interfaces. The initial input will either be no command line argument (for a first time session), or a command line argument to load a save file created from a previous session. From there, the player will be placed into a menu to either load a new game, create a new game, or view the credits. After selecting an option in the menu, the main gameplay loop will start, where a player will progress through a story, passing through three types of events in four areas: battle, shop, or dialogue. Output in every event will be an ASCII based image, a textual description, and a graphical user interface displaying options a player can choose based on the event. Within events, the main way a player interacts with the game is through keystrokes mapped to various options (attack, run, inventory, use item).  
   
 ### Design Patterns
-The two design patterns that will be used in our project is the composite pattern and the abstract factory pattern.  
+The two design patterns that will be used in our project is the visitor pattern and the abstract factory pattern.  
 
-  * Strategy
-    * We will be implementing many Event scenarios, specifically the item shop and battle choices. In battle, the user will have a choice between either attacking, running, or using an item. Whatever the client passes to the Event, will then decide what actions the event decides to do. Along with that, within the item shop, a user can choose to sell or buy items. Since these actions ultimately use the same interface, but different actions, we can use the strategy pattern to implement this.
+  * Visitor
+    * We will be implementing the visitor pattern for the very important interactions between items and the user. Items are a very integral part of the game, and it is important that they have interactions that work correctly. However, the issue is that how does the user know what the item does, and how does the item know what to modify. The visitor pattern solves this by turning the User into a visitor, and the item calling a specified bonus to apply based on what type of effect it should give.
  * Abstract Factory
     * We are planning on having a large variety of enemy types which can include variants of various types. Since the number of enemies and variants could be very large, the number of classes we would have to create would be very messy. To fix this we plan on having an abstract factory that allows us to get a enemy type factory that would generate enemy variants. Abstract Factory can also see usefulness in handling various events and the orchestration of each functional part of the events.
 
