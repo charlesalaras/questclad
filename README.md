@@ -1,3 +1,6 @@
+> # What is Questclad?
+> Questclad is the project that I worked on with Roth Vann and Yazhou Shen for my Software Construction class (CS100 at University of California, Riverside), in Winter of 2021. The project focused on testing our ability to use design patterns, conduct sprints, hold scrum meetings, create OMT Diagrams, and build a project effectively. Over the course of the project, we had two sprints, one at the halfway point and one after we demo'd the project. This project is probably the first official journey I made into Git version control, and utilizing the effective branching, PR, and issue methods that GitHub has implemented. Our final project grade was a 96.67%. Below is the original README that we created for the project.
+
 # Questclad
  
  Authors:  
